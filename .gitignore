@@ -1,3 +1,9 @@
+# vscode files
+# .classpath
+# .project
+.vscode/*
+*.code-workspace
+
 # Compiled class file
 *.class
 

@@ -1,10 +1,11 @@
-package template;
+package basicfx_webbrowser;
 
 // - Import Statements --------
 // - my code imports ----
-import myfx.*;
-import mybrowser.*;
-import mychat.*;
+import basicfx_webbrowser.myfx.*;
+import basicfx_webbrowser.fxml.*;
+import basicfx_webbrowser.browser.*;
+import basicfx_webbrowser.chat.*;
 // - javafx imports ----
 import javafx.application.Application;
 import javafx.stage.Stage;

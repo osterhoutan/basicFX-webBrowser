@@ -6,5 +6,7 @@
 	],
 	"settings": {
 		"java.home": "C:\\Program Files\\Java\\jdk-10.0.2",
+		// "markdown.preview.scrollPreviewWithEditorSelection": false,
+		// "markdown.preview.scrollEditorWithPreview": false,
 	}
 }
