@@ -1,8 +1,12 @@
 package basicfx_webbrowser.control;
 
+import java.net.URL;
+
 // - my code imports ----
 import basicfx_webbrowser.myfx.browser.WebTabPane;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.TabPane;
 // import basicfx_webbrowser.chat.*;
 // - javafx imports ----
@@ -29,11 +33,20 @@ public class BrowserController extends FXML_Controller {
 
     // - Controller Initialization Method --------
     public void initialize() {
+        browserPane.setAlignment(Pos.TOP_LEFT);
         spacer.setWidth(100);
     }
 
 
     // - Controller Methods --------
+    @FXML
+    public void newTab(Event ev) {
+        // if (ev.get)
+    } 
     
+    
+    public void newTab(URL url) {
+        
+    } 
 
 }

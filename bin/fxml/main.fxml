@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- My Appication Component Imports -->
 <!-- <?import basicfx_webbrowser.myfx.*?>
 <?import basicfx_webbrowser.myfx.browser.*?>
@@ -6,12 +7,12 @@
 <?import basicfx_webbrowser.fxml.*?>
 <?import basicfx_webbrowser.fxml.browser*?>
 <?import basicfx_webbrowser.fxml.menu*?> -->
-
 <!-- Javafx Imports -->
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+
+<?import javafx.scene.layout.StackPane?>
 
 <!-- FXML Style Sheets -->
+
 <?scenebuilder-stylesheet main.css?>
 
 <!-- 
@@ -23,15 +24,16 @@
     */
  -->
 <!-- Scene Graph -->
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.MainController" fx:id="root">
+
+<StackPane fx:id="root" prefHeight="1024.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.MainController">
     <children>
         <!-- <Label text="Hello World from javaFXML"/> -->
 
         <!-- Include the Browser fxml -->
-        <fx:include fx:id="browserPane" source="browser.fxml"/>
+        <fx:include fx:id="browserPane" source="browser.fxml" />
 
         <!-- Include the Browser fxml -->
-        <fx:include fx:id="menuPane" source="menu.fxml"/>
+        <fx:include fx:id="menuPane" source="menu.fxml" />
 
         <!-- Include the Misc fxml -->
         <!-- <fx:include fx:id="misc" source="./misc.fxml"/> -->

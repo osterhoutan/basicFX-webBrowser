@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Javafx Imports -->
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.HBox?>
 
 <!-- FXML Style Sheets -->
+
 <?scenebuilder-stylesheet main.css?>
 
 <!-- 
@@ -16,14 +18,24 @@
     */
  -->
 <!-- Sub Scene Graph -->
-<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.MenuController">
+
+<HBox 
+        xmlns="http://javafx.com/javafx/8.0.171"
+        xmlns:fx="http://javafx.com/fxml/1" 
+        fx:controller="basicfx_webbrowser.control.MenuController"
+        styleClass="menu-pane"    
+    >
     <children>
-        <TabPane fx:id="toolTabPane" styleClass="tool-tab-pane">
+        <TabPane 
+            fx:id="toolTabPane" 
+            side="LEFT" styleClass="tool-tab-pane" 
+            tabClosingPolicy="UNAVAILABLE"
+        >
             <tabs>
-                <fx:include fx:id="bookmarkToolTab" source="menu/bookmarks.fxml" styleClass="tool-tab"/>
-                <fx:include fx:id="historyToolTab" source="menu/history.fxml" styleClass="tool-tab"/>
+                <fx:include fx:id="bookmarkToolTab" source="menu/bookmarks.fxml" styleClass="tool-tab" />
+                <fx:include fx:id="historyToolTab" source="menu/history.fxml" styleClass="tool-tab" />
                 <!-- <fx:include fx:id="chatToolTab" source="menu/chat.fxml" styleClass="tool-tab"/> -->
-                <fx:include fx:id="settingsToolTab" source="menu/settings.fxml" styleClass="tool-tab"/>
+                <fx:include fx:id="settingsToolTab" source="menu/settings.fxml" styleClass="tool-tab" />
             </tabs>
         </TabPane>
     </children>

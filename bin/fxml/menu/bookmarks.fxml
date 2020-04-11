@@ -27,4 +27,7 @@
             </children>
         </VBox>
     </content>
+    <graphic>
+        <!-- <Image url="file:./icons/boomark-unfilled.png" /> -->
+    </graphic>
 </Tab>

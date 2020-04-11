@@ -8,6 +8,7 @@
 <!-- Javafx Imports -->
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.web.WebView?>
 
 <!-- FXML Style Sheets -->
 <?scenebuilder-stylesheet main.css?>
@@ -25,11 +26,17 @@
     <children>
         <HBox fx:id="browserBar">
             <children>
-            <Button fx:id="backBtn" text="&lt;-"/>
-            <Button fx:id="fwdBtn" text="-&gt;"/>
-            <Button fx:id="refreshBtn" text="O"/>
-            <OmniBar fx:id="omniBar" text="temp test text"/>
-            <Button fx:id="bookmarkBtn" text="\u9055"/>
+            <Button fx:id="backBtn" text="&#x1f878;" onAction="#back"/>
+            <Button fx:id="fwdBtn" text="&#x1f87a;" onAction="#forward" />
+            <Button fx:id="refreshBtn" text="&#x27f3;" onAction="#refresh"/>
+            <OmniBar fx:id="omniBar" text="temp test text" onAction="#navigate"/>
+            <Button fx:id="bookmarkBtn" text="&#x1f7ca;" onAction="#bookmark">
+                <!-- <graphic>
+                    <Image url="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepnglogos.com%2Fpics%2Fbbm-logo-png&psig=AOvVaw0-nkxU3Hku3qVgXM-7g-vz&ust=1586658867777000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJjd9Iqr3-gCFQAAAAAdAAAAABAD"
+                            width="32" height="32" 
+                        />
+                </graphic> -->
+            </Button>
             </children>
         </HBox>
         <WebView fx:id="webView"/>

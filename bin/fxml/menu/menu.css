@@ -1,0 +1,12 @@
+/**
+ * This is the master stye sheet for the javafx Objects in the menu's of the web Browser.
+ * 
+ * @author Andrew Osterhout (a02201315)
+ * @version <b>Project:</b> USU-Sp2020: CS-2410 Event Driven Programing and GUIs -> Final Project: basicFX_webBrowser
+ */
+TabPane {
+    -fx-tab-min-height: 64px;
+    -fx-tab-max-height: 72px;
+    -fx-tab-min-width: 64px;
+    -fx-tab-max-width: 72px;
+}
