@@ -9,4 +9,6 @@ _Final Project: basicFX-webBrowser_
 
 
 ## Third Party Assets and Libraries:
- - 
+### JavaFX CSS themes:
+    - jbootx's bootstrap2 and bootstrap3 ([GitHub](https://github.com/dicolar/jbootx))
+      - By: [dicolar](https://github.com/dicolar)

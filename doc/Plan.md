@@ -33,7 +33,7 @@ This project implements a Web Browser that allows the user to browse the interne
 
 
 ### My Personal Requirements:
-_What things I am requiring myself to do fo practice and personal standards reasons._
+_What things I am requiring myself to do for practice and personal standards reasons._
 
 #### Asthenic Requirements:
  - Make it not look like default javafx basic os system styled UI
@@ -62,9 +62,31 @@ _What things I am requiring myself to do fo practice and personal standards reas
  - Making my own javafx css style sheets
    - otherwise will use some third party Open Source javafx css sheets (credit will be given in the [credit document](credit.md))
  - Allow for theme switching without restarting the application.
+<br/><br/><br/>
 
 
 ## 2. System Requirements:
+### Research:
+#### Java:
+ - File access in Java
+
+#### JavaFX (general):
+ - 
+
+#### FXML:
+ - [Basic FXML tutorial (Jenkov)](http://tutorials.jenkov.com/javafx/fxml.html)
+ - [Nesting FXML tutorial](https://riptutorial.com/javafx/example/7285/nested-controllers)
+ - [Passing Data to FXML](https://riptutorial.com/javafx/example/8803/passing-data-to-fxml---accessing-existing-controller)
+
+#### JavaFX CSS:
+ - [Basic JavaFX CSS tutorial (Jenkov)](http://tutorials.jenkov.com/javafx/css-styling.html)
+ - [BAsic CSS tutorial Series (Jenkov)](http://tutorials.jenkov.com/css/index.html)
+ - ##### Third Party Themes:
+   - temp
+
+#### json:
+  - `.json` in Java
+    - temp
 
 
 
@@ -120,12 +142,12 @@ classDiagram
     %% GUI Class Elements ---------------------------------
     class BasicFX_webBrowser {
         - loader : javafx::FXMLLoader
-        - controller : BrowserGUIController
+        - controller : FXMLController
         + main(String[] args)$ void
         + start(javafx::Stage mainStage)$ void
     }
 
-    class BrowserGUIController {
+    class FXMLController {
 
     }
 
@@ -206,10 +228,10 @@ classDiagram
       SettingsToolTab --|> ToolTab
 
       %% - Other Relationships ---------
-      BasicFX_webBrowser --o "1" BrowserGUIController
+      BasicFX_webBrowser --o "1" FXMLController
 
-      BrowserGUIController --o "1" WebTabPane
-      BrowserGUIController --o "1" ToolTabPane
+      FXMLController --o "1" WebTabPane
+      FXMLController --o "1" ToolTabPane
 
       WebTabPane --* "1..n" WebTab
 

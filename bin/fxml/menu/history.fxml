@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- My Appication Component Imports -->
+<?import basicfx_webbrowser.myfx.menu.*?>
+
+<!-- Javafx Imports -->
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<!-- FXML Style Sheets -->
+<?scenebuilder-stylesheet menu.css?>
+
+<!-- 
+    /**
+    * FXML document for the History tooltab menu.
+    * 
+    * @author Andrew Osterhout (a02201315)
+    * @version <b>Project:</b> USU-Sp2020: CS-2410 Event Driven Programing and GUIs -> Final Project: basicFX_webBrowser
+    */
+ -->
+<!-- Sub Scene Graph -->
+<Tab xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.menu.HistoryController" fx:id="tab">
+    <content>
+        <VBox>
+            <children>
+                <Label text="//TODO: Make the History Menu" />
+            </children>
+        </VBox>
+    </content>
+</Tab>

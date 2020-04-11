@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- My Appication Component Imports -->
+<!-- <?import basicfx_webbrowser.myfx.*?> -->
+<?import basicfx_webbrowser.myfx.browser.tab.*?>
+<!-- <?import basicfx_webbrowser.myfx.browser.buttons*?> -->
+<!-- <?import basicfx_webbrowser.myfx.menu.*?> -->
+
+<!-- Javafx Imports -->
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<!-- FXML Style Sheets -->
+<?scenebuilder-stylesheet main.css?>
+
+<!-- 
+    /**
+    * FXML document for the Web Browser Tab portion of the web browser interface.
+    * 
+    * @author Andrew Osterhout (a02201315)
+    * @version <b>Project:</b> USU-Sp2020: CS-2410 Event Driven Programing and GUIs -> Final Project: basicFX_webBrowser
+    */
+ -->
+<!-- Sub Scene Graph -->
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.WebTabController" fx:id="tabRoot">
+    <children>
+        <HBox fx:id="browserBar">
+            <children>
+            <Button fx:id="backBtn" text="&lt;-"/>
+            <Button fx:id="fwdBtn" text="-&gt;"/>
+            <Button fx:id="refreshBtn" text="O"/>
+            <OmniBar fx:id="omniBar" text="temp test text"/>
+            <Button fx:id="bookmarkBtn" text="\u9055"/>
+            </children>
+        </HBox>
+        <WebView fx:id="webView"/>
+    </children>
+</VBox>

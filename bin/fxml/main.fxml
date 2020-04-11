@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- My Appication Component Imports -->
+<!-- <?import basicfx_webbrowser.myfx.*?>
+<?import basicfx_webbrowser.myfx.browser.*?>
+<?import basicfx_webbrowser.myfx.menu.*?>
+<?import basicfx_webbrowser.fxml.*?>
+<?import basicfx_webbrowser.fxml.browser*?>
+<?import basicfx_webbrowser.fxml.menu*?> -->
+
+<!-- Javafx Imports -->
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<!-- FXML Style Sheets -->
+<?scenebuilder-stylesheet main.css?>
+
+<!-- 
+    /**
+    * Main FXML document for the web browser javafx GUI
+    * 
+    * @author Andrew Osterhout (a02201315)
+    * @version <b>Project:</b> USU-Sp2020: CS-2410 Event Driven Programing and GUIs -> Final Project: basicFX_webBrowser
+    */
+ -->
+<!-- Scene Graph -->
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.MainController" fx:id="root">
+    <children>
+        <!-- <Label text="Hello World from javaFXML"/> -->
+
+        <!-- Include the Browser fxml -->
+        <fx:include fx:id="browserPane" source="browser.fxml"/>
+
+        <!-- Include the Browser fxml -->
+        <fx:include fx:id="menuPane" source="menu.fxml"/>
+
+        <!-- Include the Misc fxml -->
+        <!-- <fx:include fx:id="misc" source="./misc.fxml"/> -->
+
+        <!-- Other Elements to include -->
+        <!-- <AnchorPane fx:id="topButtons"> -->
+        <!-- </AnchorPane> -->
+
+    </children>
+</StackPane>

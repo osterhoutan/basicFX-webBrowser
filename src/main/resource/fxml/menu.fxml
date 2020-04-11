@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Javafx Imports -->
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<!-- FXML Style Sheets -->
+<?scenebuilder-stylesheet main.css?>
+
+<!-- 
+    /**
+    * FXML document for the menu/toolBar portion of the web browser interface.
+    * 
+    * @author Andrew Osterhout (a02201315)
+    * @version <b>Project:</b> USU-Sp2020: CS-2410 Event Driven Programing and GUIs -> Final Project: basicFX_webBrowser
+    */
+ -->
+<!-- Sub Scene Graph -->
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.MenuController">
+    <children>
+        <TabPane fx:id="toolTabPane" styleClass="tool-tab-pane">
+            <tabs>
+                <fx:include fx:id="bookmarkToolTab" source="menu/bookmarks.fxml" styleClass="tool-tab"/>
+                <fx:include fx:id="historyToolTab" source="menu/history.fxml" styleClass="tool-tab"/>
+                <!-- <fx:include fx:id="chatToolTab" source="menu/chat.fxml" styleClass="tool-tab"/> -->
+                <fx:include fx:id="settingsToolTab" source="menu/settings.fxml" styleClass="tool-tab"/>
+            </tabs>
+        </TabPane>
+    </children>
+</HBox>

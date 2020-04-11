@@ -2,10 +2,32 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "doc"
 		}
 	],
 	"settings": {
 		"java.home": "C:\\Program Files\\Java\\jdk-10.0.2",
+		"cSpell.words": [
+			"Assgn",
+			"OSTER",
+			"OSTERHOUTAN",
+			"Omni",
+			"Oster",
+			"Osterhout",
+			"Osterhoutan",
+			"assgn",
+			"basicfx",
+			"disp",
+			"isdigit",
+			"oster",
+			"osterhoutan",
+			"webbrowser"
+		],
+		"explorer.compactFolders": true,
+		"java.dependency.syncWithFolderExplorer": false,
+		"java.dependency.packagePresentation": "hierarchical",
 		// "markdown.preview.scrollPreviewWithEditorSelection": false,
 		// "markdown.preview.scrollEditorWithPreview": false,
 	}
