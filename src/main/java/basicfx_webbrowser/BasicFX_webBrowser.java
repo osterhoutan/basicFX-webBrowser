@@ -71,10 +71,24 @@ public class BasicFX_webBrowser extends Application {
 
 
     private void initializeBackend() throws Exception {
-        settings = new SettingsManager((FileInputStream) getClass().getResourceAsStream("settings.json"));
-        bookmarks = new BookmarkManager((FileInputStream) getClass().getResourceAsStream("bookmarks.json"));
-        history = new HistoryManager((FileInputStream) getClass().getResourceAsStream("history.json"));
-        session = new SessionManager((FileInputStream) getClass().getResourceAsStream("session.json"), settings.doRestore());
+        Global.settings.setFile(getClass().getResource("/config/settings.json"));
+        Global.bookmarks.setFile(getClass().getResource("/config/bookmarks.json"));
+        Global.history.setFile(getClass().getResource("/history/history.json"));
+        Global.session.setFile(getClass().getResource("/history/session.json"));
+        settings.read();
+        bookmarks.read();
+        history.read();
+        if (settings.doRestore()) session.read();
     }
+
+    @Override
+    public void stop() throws Exception {
+        System.out.println("Stage is closing");
+        settings.write();
+        bookmarks.write();
+        history.write();
+        session.write();
+    }
+
 
 }

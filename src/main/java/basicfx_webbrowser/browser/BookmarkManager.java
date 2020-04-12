@@ -1,6 +1,9 @@
 package basicfx_webbrowser.browser;
 
-import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Set;
+
+import org.json.simple.JSONObject;
 
 /**
  * Bookmark manger class for a web browser.
@@ -8,45 +11,52 @@ import java.io.FileInputStream;
  * @author Andrew Osterhout (a02201315)
  * @version <b>Project:</b> USU-Sp2020: CS-2410 Event Driven Programing and GUIs -> Final Project: basicFX_webBrowser
  */
-public class BookmarkManager {
+public final class BookmarkManager extends JsonManager<JSONObject> {
 
     // - Class Attributes -------
 
 
 
     // - Class Constructors -------
-    public BookmarkManager(FileInputStream file) {
-
+    public BookmarkManager() {
+        
     }
 
 
     // - Public Settings value Getter --------
+    public Set<String> getBookmarkNames() {
+        return (Set<String>) json.keySet();
+    }
 
+    public String getURL(String name) {
+        return (String) json.get(name);
+    }
 
+    public boolean isBookmark(String url) {
+        return json.containsValue(url);
+    }
 
+    public void addBookmark(String name, String url) {
+        name = name.trim();
+        if (json.containsKey(name)) 
+            name = addBookmark(name, url, 1);
+        json.put(name, url);
+    }
 
+    private String addBookmark(String name, String url, int modifier) {
+        String newName = name+" ("+ modifier+")";
+        if (json.containsKey(newName))
+            return addBookmark(name, url, ++modifier);
+        return newName;
+    }
 
-
-    // - Public Settings value Setters ----------
-
-
-
-
-    
-
-    // - Class Public Methods ------------
-
-
-
-
-
-    // - Class Private Methods -----------
-
-
-
-
-
-    // - Private attribute Getters and Setters --------
+    public boolean removeBookmark(String name) {
+        if (json.containsKey(name)) {
+            json.remove(name);
+            return true;
+        }
+        return false;
+    }
 
 
 }

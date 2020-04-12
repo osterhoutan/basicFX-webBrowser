@@ -1,6 +1,6 @@
 package basicfx_webbrowser.browser;
 
-import java.io.FileInputStream;
+import org.json.simple.JSONArray;
 
 /**
  * Store and save data about the current browsing session.
@@ -9,14 +9,14 @@ import java.io.FileInputStream;
  * @version <b>Project:</b> USU-Sp2020: CS-2410 GUI's -> Final Project:
  *          basicFX-webBrowser -> BasicFX_webBrowser main application Class
  */
-public class SessionManager {
+public final class SessionManager extends JsonManager<JSONArray> {
     
     // - Class Attributes -------
 
 
 
     // - Class Constructors -------
-    public SessionManager(FileInputStream file, boolean restore) {
+    public SessionManager() {
 
     }
 
