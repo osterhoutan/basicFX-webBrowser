@@ -40,7 +40,8 @@ public final class BookmarkManager extends JsonManager<JSONObject> {
         name = name.trim();
         if (json.containsKey(name)) 
             name = addBookmark(name, url, 1);
-        json.put(name, url);
+        json.put(name, url.trim());
+        try { this.write(); } catch (Exception ex) {System.out.println("\n\n\tERROR: failed to save bookmarks.\n");}
     }
 
     private String addBookmark(String name, String url, int modifier) {
@@ -56,6 +57,14 @@ public final class BookmarkManager extends JsonManager<JSONObject> {
             return true;
         }
         return false;
+    }
+
+    public void removeBookmarkByURL(String url) {
+        json.forEach((key, value) -> {
+            String entry = (String) value;
+            if (entry.equals(url))
+                json.remove(key);
+        });
     }
 
 

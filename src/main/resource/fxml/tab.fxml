@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- My Appication Component Imports -->
 <!-- <?import basicfx_webbrowser.myfx.*?> -->
-<?import basicfx_webbrowser.myfx.browser.tab.*?>
+<?import basicfx_webbrowser.myfx.browser.tab.OmniBar?>
 <!-- <?import basicfx_webbrowser.myfx.browser.buttons*?> -->
 <!-- <?import basicfx_webbrowser.myfx.menu.*?> -->
-
 <!-- Javafx Imports -->
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.web.WebView?>
 
 <!-- FXML Style Sheets -->
+
 <?scenebuilder-stylesheet main.css?>
 
 <!-- 
@@ -22,23 +25,26 @@
     */
  -->
 <!-- Sub Scene Graph -->
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.WebTabController" fx:id="tabRoot">
-    <children>
-        <HBox fx:id="browserBar">
+
+<BorderPane fx:id="tabRoot" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.WebTabController">
+    <top>
+        <HBox fx:id="browserBar" alignment="CENTER">
             <children>
-            <Button fx:id="backBtn" text="&#x1f878;" onAction="#back"/>
-            <Button fx:id="fwdBtn" text="&#x1f87a;" onAction="#forward" />
-            <Button fx:id="refreshBtn" text="&#x27f3;" onAction="#refresh"/>
-            <OmniBar fx:id="omniBar" text="temp test text" onAction="#navigate"/>
-            <Button fx:id="bookmarkBtn" text="&#x1f7ca;" onAction="#bookmark">
-                <!-- <graphic>
-                    <Image url="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepnglogos.com%2Fpics%2Fbbm-logo-png&psig=AOvVaw0-nkxU3Hku3qVgXM-7g-vz&ust=1586658867777000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJjd9Iqr3-gCFQAAAAAdAAAAABAD"
-                            width="32" height="32" 
-                        />
-                </graphic> -->
-            </Button>
+                <Button fx:id="backBtn" onAction="#back" styleClass="webBar" text="🡸" />
+                <Button fx:id="fwdBtn" onAction="#forward" styleClass="webBar" text="🡺" />
+                <Button fx:id="refreshBtn" onAction="#refresh" styleClass="webBar" text="⟳" />
+                <OmniBar fx:id="omnibar" text="temp test text" onAction="#navigate" styleClass="webBar"/>
+                <Button fx:id="bookmarkBtn" onAction="#bookmark" styleClass="webBar" text="☆" />
+                    <!-- <graphic>
+                        <Image url="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepnglogos.com%2Fpics%2Fbbm-logo-png&psig=AOvVaw0-nkxU3Hku3qVgXM-7g-vz&ust=1586658867777000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJjd9Iqr3-gCFQAAAAAdAAAAABAD"
+                                width="32" height="32" 
+                            />
+                    </graphic> -->
+                <!-- </Button> -->
             </children>
         </HBox>
-        <WebView fx:id="webView"/>
-    </children>
-</VBox>
+    </top>
+    <center>
+        <WebView fx:id="webView" />
+    </center>
+</BorderPane>

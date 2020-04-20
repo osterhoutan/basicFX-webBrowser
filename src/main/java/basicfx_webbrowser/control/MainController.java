@@ -22,6 +22,7 @@ public class MainController extends FXML_Controller {
 
     // - FXML Objects --------
     @FXML public StackPane root;
+    @FXML public BorderPane mainPane;
     @FXML public BrowserController browser;
     @FXML public HBox BrowserPane;
     @FXML public MenuController menu;
@@ -39,6 +40,7 @@ public class MainController extends FXML_Controller {
     // - Controller initialization Method --------
     public void initialize() {
         // - Create the managers ----
+        // BorderPane.
         // bookmarkManager = 
         // browser.spacer.widthProperty().bind(menu.toolTabPane.widthProperty());
     }

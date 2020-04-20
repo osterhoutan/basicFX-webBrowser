@@ -19,18 +19,15 @@
  -->
 <!-- Sub Scene Graph -->
 
-<HBox 
-        xmlns="http://javafx.com/javafx/8.0.171"
+<HBox   xmlns="http://javafx.com/javafx/8.0.171"
         xmlns:fx="http://javafx.com/fxml/1" 
         fx:controller="basicfx_webbrowser.control.MenuController"
-        styleClass="menu-pane"    
-    >
+        styleClass="menu-pane" >
     <children>
-        <TabPane 
+        <TabPane    
             fx:id="toolTabPane" 
-            side="LEFT" styleClass="tool-tab-pane" 
-            tabClosingPolicy="UNAVAILABLE"
-        >
+                side="LEFT" styleClass="tool-tab-pane" 
+                tabClosingPolicy="UNAVAILABLE" >
             <tabs>
                 <fx:include fx:id="bookmarkToolTab" source="menu/bookmarks.fxml" styleClass="tool-tab" />
                 <fx:include fx:id="historyToolTab" source="menu/history.fxml" styleClass="tool-tab" />

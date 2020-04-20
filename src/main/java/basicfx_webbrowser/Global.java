@@ -11,5 +11,6 @@ public final class Global {
     public static final BookmarkManager bookmarks = new BookmarkManager();
     public static final HistoryManager history = new HistoryManager();
     public static final SessionManager session = new SessionManager();
+    public static final String appDataDir = "AppData/";
 
 }

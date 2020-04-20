@@ -19,12 +19,17 @@
 			"Osterhoutan",
 			"assgn",
 			"basicfx",
+			"bing",
 			"disp",
 			"isdigit",
+			"javafx",
 			"omnibar",
 			"oster",
 			"osterhoutan",
-			"webbrowser"
+			"scenebuilder",
+			"stylesheet",
+			"webbrowser",
+			"youtube"
 		],
 		"explorer.compactFolders": true,
 		"java.dependency.syncWithFolderExplorer": false,

@@ -1,33 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- My Appication Component Imports -->
-<?import basicfx_webbrowser.myfx.menu.*?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <!-- Javafx Imports -->
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-
 <!-- FXML Style Sheets -->
+
 <?scenebuilder-stylesheet menu.css?>
 
 <!-- 
     /**
-    * FXML document for the bookmarks tooltab menu.
+    * FXML document for the bookmarks tool-tab menu.
     * 
     * @author Andrew Osterhout (a02201315)
     * @version <b>Project:</b> USU-Sp2020: CS-2410 Event Driven Programing and GUIs -> Final Project: basicFX_webBrowser
     */
  -->
 <!-- Sub Scene Graph -->
-<Tab xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.menu.SettingsController" fx:id="tab">
+<Tab xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.menu.SettingsController" fx:id="tab" text="&#2606;">
     <content>
+
         <VBox>
             <children>
-                <Label text="//TODO: Make the Bookmarks Menu" />
-                
+                <!-- Title/Header -->
+                <Label styleClass="h1" text="Bookmarks:" />
+
+                <!-- Add Bookmark Menu -->
+                <TitledPane fx:id="editBMrkMenuTitle" styleClass="h2" text="Add/Edit Bookmark" VBox.vgrow="NEVER">
+                    <content>
+                        <GridPane fx:id="editBMrkMenuPane">
+                            <Label styleClass="h3" text=" Name: " GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
+                                <padding>
+                                    <Insets right="4.0" />
+                                </padding>
+                            </Label>
+                            <TextField fx:id="nameField" onAction="#saveChanges" promptText="Bookmark Name" styleClass="h3" GridPane.columnIndex="1" />
+
+                            <Label styleClass="h3" text="URL: " GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                                <GridPane.margin>
+                                    <Insets />
+                                </GridPane.margin>
+                                <padding>
+                                    <Insets right="4.0" />
+                                </padding>
+                            </Label>
+                            <TextField fx:id="urlField" onAction="#saveChanges" promptText="Bookmark URL" styleClass="h3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="20.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                                <items>
+
+                                    <Button fx:id="btnCancel" onAction="#cancelChanges" text="✘" />
+
+                                    <Button fx:id="btnSave" onAction="#saveChanges" text="✔" />
+                                </items>
+                            </ToolBar>
+                            <columnConstraints>
+                                <ColumnConstraints />
+                                <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                            </rowConstraints>
+                        </GridPane>
+                    </content>
+                </TitledPane>
+
+                <!-- Bookmark View -->
+                <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <children>
+                        <ListView fx:id="listView" HBox.hgrow="ALWAYS" editable="false">
+                            <padding>
+                                <Insets bottom="16.0" left="8.0" right="8.0" top="8.0" />
+                            </padding>
+                        </ListView>
+                    </children>
+                    <padding>
+                        <Insets bottom="16.0" left="8.0" right="8.0" top="8.0" />
+                    </padding>
+                </HBox>
+
+
             </children>
+            <stylesheets>
+                <URL value="@../main.css" />
+                <URL value="@menu.css" />
+            </stylesheets>
+            <padding>
+                <Insets bottom="16.0" left="8.0" right="8.0" top="16.0" />
+            </padding>
         </VBox>
     </content>
-    <graphic>
-        <!-- <Image url="file:./icons/boomark-unfilled.png" /> -->
-    </graphic>
+
+    <!-- <graphic>
+        <Image url="file:./icons/boomark-unfilled.png" />
+    </graphic> -->
 </Tab>

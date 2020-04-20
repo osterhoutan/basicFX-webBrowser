@@ -9,21 +9,51 @@
     -fx-tab-min-height: 64px;
     -fx-tab-max-height: 72px;
     -fx-tab-min-width: 128px;
-    -fx-tab-max-width: 512px;
+    -fx-tab-max-width: infinity;
 }
 
-.menu-pane {
+.menu-pane, tool-tab {
     -fx-min-width: 64px;
     -fx-max-width: 512px;
-    -fx-min-height: 256px;
-    -fx-preferred-width: 128;
-    -fx-preferred-height: 1024;
+    -fx-min-height: 512px;
+    /* -fx-preferred-width: 128; */
+    /* -fx-preferred-height: 1024; */
 }
 
 .browser-pane {
     -fx-min-width: 512px;
     -fx-min-height: 256px;
-    -fx-preferred-width: 960;
-    -fx-preferred-height: 1024;
+    /* -fx-preferred-width: 960; */
+    /* -fx-preferred-height: 1024; */
+    -fx-max-width: infinity;
+    -fx-max-height: infinity;
+}
+
+.webBar {
+    -fx-padding: 2px 8px 2px 8px;
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+    -fx-border-color: transparent;
+}
+
+/* .button.webBar {
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+    -fx-border-color: transparent;
+} */
+
+WebView {
+    -fx-max-width: infinity;
+    -fx-max-height: infinity;
+    -fx-context-menu-enabled: true;
+}
+
+OmniBar {
+    -fx-max-width: infinity;
+    -fx-max-height: 72px;
+}
+
+VBox, HBox, StackPane, TabPane, AnchorPane {
+    -fx-background-color: null;
 }
  

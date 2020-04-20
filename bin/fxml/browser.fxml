@@ -23,24 +23,14 @@
     */
  -->
 <!-- Sub Scene Graph -->
-<HBox 
-        xmlns="http://javafx.com/javafx/8" 
+<TabPane   xmlns="http://javafx.com/javafx/8" 
         xmlns:fx="http://javafx.com/fxml/1" 
         fx:controller="basicfx_webbrowser.control.BrowserController" 
-        fx:id="browserPane"
-        alignment="TOP_RIGHT"
-        styleClass="browser-pane"
-    >
-    <children>
-        <Rectangle fx:id="spacer"/>
-
-        <TabPane fx:id="webTabs" styleClass="web-tab-pane" tabClosingPolicy="ALL_TABS">
-            <!-- <WebTab text="new tab"/> -->
-            <Tab text="test tab 1"/>
-            <Tab text="test tab 2"/>
-            <Tab text="test tab 3"/>
-            <Tab styleClass="new-tab" text="&#xFF0B;" onSelectionChanged="#newTab" />
-        </TabPane>
-            
-    </children>
-</HBox>
+        fx:id="browserTabs"
+        styleClass="web-tab-pane"
+        tabClosingPolicy="SELECTED_TAB" >
+    <tabs>
+        <!-- <WebTab text="new tab"/> -->
+        <Tab fx:id="newTab" styleClass="new-tab" text="&#xFF0B;" onSelectionChanged="#newTab" />
+    </tabs>
+</TabPane>

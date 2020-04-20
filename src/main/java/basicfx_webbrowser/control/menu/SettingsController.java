@@ -1,6 +1,7 @@
 package basicfx_webbrowser.control.menu;
 
 import basicfx_webbrowser.control.FXML_Controller;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 
@@ -15,13 +16,25 @@ public class SettingsController extends FXML_Controller {
 
     // - FXML loaded Attributes ------------
     @FXML private Tab tab;
+    
 
     // - Initializer Method ----------
+    @FXML
     public void initialize() {
 
     }
 
 
     // - FXML loaded Methods ------------
+    @FXML
+    public void saveChanges(Event ev) {
+
+    }
+
+
+    @FXML
+    public void cancelChanges(Event ev) {
+
+    }
     
 }

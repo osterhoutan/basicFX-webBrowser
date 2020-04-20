@@ -23,11 +23,12 @@ abstract class JsonManager<O extends Object> {
 
 
     // - Class Public Methods ---------
-    public void setFile(URL url) throws Exception {
-        file = new File(url.toURI());
+    public void setFile(String filePath) throws Exception {
+        file = new File(filePath);
+        if (!file.exists()) file.createNewFile();
     }
 
-    public void read() throws Exception { 
+    public void read() throws Exception {
         Object temp = new JSONParser().parse(new FileReader(file));
         json = (O) temp;
     }
@@ -42,6 +43,8 @@ abstract class JsonManager<O extends Object> {
             JSONArray obj = (JSONArray) json;
             pw.write(obj.toJSONString());
         }
+        pw.flush(); 
+        pw.close();
     }
 
     // public <T> T getValue(String key) {

@@ -1,17 +1,14 @@
 package basicfx_webbrowser.control;
 
 import java.net.URL;
+import java.util.ArrayList;
 
-// - my code imports ----
-import basicfx_webbrowser.myfx.browser.WebTabPane;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-// import basicfx_webbrowser.chat.*;
-// - javafx imports ----
-import javafx.scene.layout.HBox;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.BorderPane;
 
 /**
  * FXML Controller class for the {@code browser.fxml} ({@code basicfx_webbrowser/fxml/browser/browser.fxml}) file.
@@ -22,26 +19,43 @@ import javafx.scene.shape.Rectangle;
 public class BrowserController extends FXML_Controller {
 
     // - FXML Attributes --------
-    @FXML private HBox browserPane;
-    @FXML public Rectangle spacer;
-    @FXML public TabPane webTabs;
+    // @FXML private TabPane browserPane;
+    // @FXML public Rectangle spacer;
+    @FXML public TabPane browserTabs;
+    @FXML public Tab newTab;
 
 
     // - Class Attributes --------
-
+    public ArrayList<WebTabController> tabControllers = new ArrayList<>();
 
 
     // - Controller Initialization Method --------
     public void initialize() {
-        browserPane.setAlignment(Pos.TOP_LEFT);
-        spacer.setWidth(100);
     }
 
 
     // - Controller Methods --------
     @FXML
     public void newTab(Event ev) {
-        // if (ev.get)
+        if (!newTab.selectedProperty().get()) return;
+        try {
+            browserTabs.getTabs().remove(newTab);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tab.fxml"));
+            Tab tab = new Tab();
+            BorderPane tabRoot = loader.load(); 
+            tab.setContent(tabRoot);
+            WebTabController controller = loader.getController();
+            tabControllers.add(controller);
+            controller.getPageTitle().addListener((ob, ov, nv) -> {
+                if (nv != null)
+                    tab.setText(nv);
+                else
+                    tab.setText(controller.getCurrentURL());
+            });
+            browserTabs.getTabs().add(tab);
+            browserTabs.getTabs().add(newTab);
+            browserTabs.getSelectionModel().select(tab);
+        } catch (Exception ex) {System.out.println("Failed to convert tabRoot. (BrowserController.newTab(Event ev): 58)\n\t"+ex.getMessage()); } //ex.printStackTrace(); }
     } 
     
     

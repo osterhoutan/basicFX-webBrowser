@@ -10,6 +10,7 @@
 <!-- Javafx Imports -->
 
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.BorderPane?>
 
 <!-- FXML Style Sheets -->
 
@@ -25,22 +26,33 @@
  -->
 <!-- Scene Graph -->
 
-<StackPane fx:id="root" prefHeight="1024.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.MainController">
+<StackPane 
+        fx:id="root"
+        prefHeight="1024.0" 
+        prefWidth="1024.0" 
+        xmlns="http://javafx.com/javafx/8.0.171"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="basicfx_webbrowser.control.MainController" >
     <children>
-        <!-- <Label text="Hello World from javaFXML"/> -->
+        <BorderPane fx:id="mainPane">
+            <center>
+                <!-- <Label text="Hello World from javaFXML"/>  -->
 
-        <!-- Include the Browser fxml -->
-        <fx:include fx:id="browserPane" source="browser.fxml" />
+                <!-- Include the Browser fxml -->
+                <fx:include fx:id="browserPane" source="browser.fxml" />
+            </center>
+            <left>
 
-        <!-- Include the Browser fxml -->
-        <fx:include fx:id="menuPane" source="menu.fxml" />
-
+            <!-- Include the Menu fxml -->
+            <fx:include fx:id="menuPane" source="menu.fxml" />
+            </left>
         <!-- Include the Misc fxml -->
         <!-- <fx:include fx:id="misc" source="./misc.fxml"/> -->
 
-        <!-- Other Elements to include -->
-        <!-- <AnchorPane fx:id="topButtons"> -->
-        <!-- </AnchorPane> -->
+        </BorderPane>
 
+        <!-- Other Elements to include -->
+        <!-- <AnchorPane fx:id="topButtons" > -->
+        <!-- </AnchorPane> -->
     </children>
 </StackPane>

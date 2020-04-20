@@ -1,6 +1,7 @@
 package basicfx_webbrowser;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 
 import basicfx_webbrowser.browser.BookmarkManager;
@@ -28,21 +29,16 @@ public class BasicFX_webBrowser extends Application {
     public static void main(String[] args) {
         try{
             launch(args);
-        } catch (Exception ex) { System.out.printf("\n%s\n", ex.getMessage()); ex.printStackTrace(); }
+        } catch (Exception ex) { System.out.printf("\n%s\n", ex.getMessage()); ex.printStackTrace(); System.exit(0);}
     }
 
     private Scene scene;
-    private SessionManager session;
-    private HistoryManager history;
-    private BookmarkManager bookmarks;
-    private SettingsManager settings;
 
 
     @Override
     public void start(Stage mainStage) throws Exception {
         // - Name the Scene ----
         mainStage.setTitle("basicFX-webBrowser - a02201315");
-
         
 
         // - Initialize the browser Backend -------
@@ -57,7 +53,7 @@ public class BasicFX_webBrowser extends Application {
         scene = new Scene(root, 1024, 1024);
 
         // - Load the css Files ----
-        scene.getStylesheets().add(getClass().getResource(settings.getTheme()).toExternalForm());
+        scene.getStylesheets().add(getClass().getResource(Global.settings.getTheme()).toExternalForm());
 
         // - Finish Creating Interface ----
         mainStage.setScene(scene);
@@ -71,23 +67,29 @@ public class BasicFX_webBrowser extends Application {
 
 
     private void initializeBackend() throws Exception {
-        Global.settings.setFile(getClass().getResource("/config/settings.json"));
-        Global.bookmarks.setFile(getClass().getResource("/config/bookmarks.json"));
-        Global.history.setFile(getClass().getResource("/history/history.json"));
-        Global.session.setFile(getClass().getResource("/history/session.json"));
-        settings.read();
-        bookmarks.read();
-        history.read();
-        if (settings.doRestore()) session.read();
+        Global.settings.setFile(Global.appDataDir+"config/settings.json");
+        Global.bookmarks.setFile(Global.appDataDir+("config/bookmarks.json"));
+        Global.history.setFile(Global.appDataDir+("history.json"));
+        Global.session.setFile(Global.appDataDir+("session.json"));
+        Global.settings.read();
+        Global.bookmarks.read();
+        Global.history.read();
+        if (Global.settings.doRestore()) Global.session.read();
     }
 
     @Override
     public void stop() throws Exception {
-        System.out.println("Stage is closing");
-        settings.write();
-        bookmarks.write();
-        history.write();
-        session.write();
+        System.out.println("Stage is closing");     // DEBUG: test to see if called on close
+        try {
+            Global.settings.write();
+            Global.bookmarks.write();
+            Global.history.write();
+            Global.session.write();
+        } catch (IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+        // System.exit(0);
+        throw new Exception("Program Exiting Normally");
     }
 
 
