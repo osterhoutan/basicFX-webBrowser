@@ -8,12 +8,19 @@
  .web-tab-pane {
     -fx-tab-min-height: 64px;
     -fx-tab-max-height: 72px;
-    -fx-tab-min-width: 128px;
-    -fx-tab-max-width: infinity;
+    -fx-tab-min-width: 32px;
+    -fx-tab-max-width: 128;
 }
 
-.menu-pane, tool-tab {
-    -fx-min-width: 64px;
+.toot-tab-pane {
+    -fx-tab-min-width: 32;
+    -fx-tab-min-height: 64;
+    -fx-tab-max-width: 32;
+    -fx-tab-max-height: 64;
+    -fx-font-size: 18pt;
+}
+
+.menu-pane, .tool-tab {
     -fx-max-width: 512px;
     -fx-min-height: 512px;
     /* -fx-preferred-width: 128; */

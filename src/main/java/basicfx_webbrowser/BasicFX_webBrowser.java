@@ -26,10 +26,18 @@ import javafx.stage.Stage;
  */
 public class BasicFX_webBrowser extends Application {
 
+    private static final Exception exitException = new Exception("\n\n\tProgram Exiting Normally\n\n");
+
     public static void main(String[] args) {
         try{
             launch(args);
-        } catch (Exception ex) { System.out.printf("\n%s\n", ex.getMessage()); ex.printStackTrace(); System.exit(0);}
+        } catch (Exception ex) {
+            if (ex!=exitException) {
+                System.out.printf("\n%s\n", ex.getMessage());
+                ex.printStackTrace(); 
+            }
+            System.exit(0);
+        }
     }
 
     private Scene scene;
@@ -53,7 +61,7 @@ public class BasicFX_webBrowser extends Application {
         scene = new Scene(root, 1024, 1024);
 
         // - Load the css Files ----
-        scene.getStylesheets().add(getClass().getResource(Global.settings.getTheme()).toExternalForm());
+        scene.getStylesheets().add(Global.settings.getTheme().toExternalForm());
 
         // - Finish Creating Interface ----
         mainStage.setScene(scene);
@@ -79,7 +87,7 @@ public class BasicFX_webBrowser extends Application {
 
     @Override
     public void stop() throws Exception {
-        System.out.println("Stage is closing");     // DEBUG: test to see if called on close
+        // System.out.println("Stage is closing");     // DEBUG: test to see if called on close
         try {
             Global.settings.write();
             Global.bookmarks.write();
@@ -89,7 +97,7 @@ public class BasicFX_webBrowser extends Application {
             ex.printStackTrace(System.err);
         }
         // System.exit(0);
-        throw new Exception("Program Exiting Normally");
+        throw exitException;
     }
 
 

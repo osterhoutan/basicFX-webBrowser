@@ -1,11 +1,16 @@
 package basicfx_webbrowser.browser;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.jar.Attributes.Name;
 
 import org.json.simple.JSONObject;
 
+import basicfx_webbrowser.Global;
 import basicfx_webbrowser.browser.settings.SearchEngine;
 
 /**
@@ -17,12 +22,15 @@ import basicfx_webbrowser.browser.settings.SearchEngine;
 public final class SettingsManager extends JsonManager<JSONObject> {
 
     // - Class Attributes -------
-    
-
+    private File builtInThemeDir;
+    private File userThemeDir;
+    private ArrayList<String> builtInThemes = new ArrayList<>();
+    private ArrayList<String> userThemes = new ArrayList<>();
+    private ArrayList<File> userThemeFiles = new ArrayList<>();
+    private ArrayList<String> themeNames = new ArrayList<>();
 
     // - Class Constructors -------
     public SettingsManager() {
-        
     }
 
 
@@ -34,17 +42,46 @@ public final class SettingsManager extends JsonManager<JSONObject> {
         return false;
     }
 
-    public String getTheme() {
-        if (json.containsKey("theme"))
-            return "/theme/"+ (String) json.get("theme");
-        return "/theme/"+ "bootstrap3.css";
+    public URL getTheme() throws MalformedURLException {
+        String themeName = getThemeName();
+        int index = userThemes.indexOf(themeName+".css");
+        if (index>0)
+            return userThemeFiles.get(index).toURI().toURL();
+        if (builtInThemes.contains(themeName+".css"))
+            return getClass().getResource("/theme/"+themeName+".css"); 
+        return getClass().getResource("/theme/bootstrap3.css");
     }
 
-    public boolean isMenuPinned() {
-        if (json.containsKey("pinMenu"))
-            return (Boolean) json.get("pinMenu");
+    public String getThemeName() {
+        if (json.containsKey("theme"))
+            return (String) json.get("theme");
+        return "bootstrap3";
+    }
+
+    public List<String> getThemeNameList() {
+        updateKnownThemes();
+        builtInThemes.forEach((item) -> {
+            String name = ((String) item).replaceAll("\\.css$", "");
+            if (!themeNames.contains(name)) themeNames.add(name);
+        });
+        userThemes.forEach((item) -> {
+            String name = ((String) item).replaceAll("\\.css$", "");
+            if (!themeNames.contains(name)) themeNames.add(name);
+        });
+        return themeNames;
+    }
+
+    public boolean getMenuState() {
+        if (json.containsKey("menuState"))
+            return (Boolean) json.get("menuState");
         return false;
     }
+
+    // public double getMenuSize() {
+    //     if (json.containsKey("menuSize"))
+    //         return (Double) json.get("menuSize");
+    //     return 128;
+    // }
     
 
     public SearchEngine getSearchEngine() {
@@ -59,13 +96,44 @@ public final class SettingsManager extends JsonManager<JSONObject> {
     }
 
 
+    public SearchEngine getCustomSearchEngine() {
+        if (!json.containsKey("customSearchEngine")) 
+            return SearchEngine.GOOGLE;
+        JSONObject values = (JSONObject) json.get("customSearchEngine");
+        if (values.containsKey("searchHeader"))
+            return SearchEngine.setCustomEngine(
+                    (values.containsKey("name")) ? (String) values.get("name") : "Custom",
+                    (values.containsKey("queryURL")) ? (String) values.get("queryURL") : "",
+                    (String) values.get("searchHeader")
+                );
+        return SearchEngine.setCustomEngine(
+                (values.containsKey("name")) ? (String) values.get("name") : "Custom",
+                (values.containsKey("queryURL")) ? (String) values.get("queryURL") : ""
+            );
+    }
+
+    public List<String> getSearchEngineList() {
+        ArrayList<String> temp = new ArrayList<>();
+        for (SearchEngine eng : SearchEngine.values()) 
+            if (!eng.getName().equals("Custom"))
+                temp.add(eng.getName());
+        temp.add("Custom");
+        return temp;
+    }
+
+
     public String getHomePage() {
-        if (isNewTabHome()) return "https://www.google.com";
         if (!json.containsKey("homePage"))
             return "https://www.google.com";
         String url = (String) json.get("homePage");
         if (isValidURL(url)) return url;
         return "https://www.google.com";
+    }
+
+
+    public String getStartPage() {
+        if (isNewTabHome()) return "https://www.google.com";
+        return getHomePage();
     }
 
 
@@ -85,41 +153,88 @@ public final class SettingsManager extends JsonManager<JSONObject> {
 
     // - Public Settings value Setters ----------
 
+    public void setMenuState(Boolean isShown) {
+        json.put("menuState", isShown);
+    }
+
+    public void toggleMenuState() {
+        if (!json.containsKey("menuState")) json.put("menuState", (Boolean) false);
+        json.put("menuState", !((Boolean) json.get("menuState")));
+    }
 
 
+    public void setDoRestore(Boolean value) {
+        json.put("restore", value);
+    }
+
+
+    public void setNewTabHome(Boolean value) {
+        json.put("newTabAsHomePage", value);
+    }
+
+    public boolean setHomePage(String url) {
+        if (!isValidURL(url)) return false;
+        json.put("homePage", url);
+        return true;
+    }
+
+    public void setTheme(String name) {
+        json.put("theme", name);
+    }
+
+    public void setSearchEngine(String name) {
+        json.put("searchEngine", name);
+    }
+
+    public boolean setCustomSearchEngine(String header, String queryURL) {
+        if (!header.matches("^[a-z]{3,16}:$") && header!="") return false;
+        if (!queryURL.matches(Global.urlRegEx) || queryURL.matches("^.{16,}%s.*$")) return false;
+        JSONObject temp = new JSONObject();
+        temp.put("type", "SearchEngine");
+        temp.put("searchHeader", header);
+        temp.put("querryURL", queryURL);
+        temp.put("name", "Custom");
+        return true;
+    }
 
 
 
     // - Class Public Methods ------------
-
-
+    @Override
+    public void read() throws Exception {
+        super.read();
+        builtInThemeDir = new File(getClass().getResource("/theme").toURI());
+        userThemeDir = new File(Global.appDataDir+"themes");
+        builtInThemes.addAll(Arrays.asList(builtInThemeDir.list()));
+        userThemes.addAll(Arrays.asList(userThemeDir.list()));
+        userThemeFiles.addAll(Arrays.asList(userThemeDir.listFiles()));
+    }
 
 
 
     // - Class Private Methods -----------
 
-    private SearchEngine getCustomSearchEngine() {
-        if (!json.containsKey("customSearchEngine")) 
-            return SearchEngine.GOOGLE;
-        JSONObject values = (JSONObject) json.get("customSearchEngine");
-        if (values.containsKey("searchHeader"))
-            return SearchEngine.setCustomEngine(
-                    (values.containsKey("name")) ? (String) values.get("name") : "Custom",
-                    (values.containsKey("queryURL")) ? (String) values.get("queryURL") : "",
-                    (String) values.get("searchHeader")
-                );
-        return SearchEngine.setCustomEngine(
-                (values.containsKey("name")) ? (String) values.get("name") : "Custom",
-                (values.containsKey("queryURL")) ? (String) values.get("queryURL") : ""
-            );
+    private boolean isValidURL(String url) {
+        if (url.matches(Global.urlRegEx))
+            try {
+                new URL(url).toURI();
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
+        return false;
     }
 
-    private boolean isValidURL(String url) {
+    private void updateKnownThemes() {
         try {
-            new URL(url).toURI();
-            return true;
+            builtInThemeDir = new File(getClass().getResource("/theme").toURI());
+            userThemeDir = new File(Global.appDataDir+"themes");
+            builtInThemes.addAll(Arrays.asList(builtInThemeDir.list()));
+            userThemes.addAll(Arrays.asList(userThemeDir.list()));
+            userThemeFiles.addAll(Arrays.asList(userThemeDir.listFiles()));
         } catch (Exception ex) {
-            return false;
+            System.err.println("\n\n\tERROR: failed to find built in Themes Directory (SettingsManager.updateKnownThemes(): 175)\n\n");
+            ex.printStackTrace(System.err);
         }
     }
 

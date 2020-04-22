@@ -1,13 +1,10 @@
 package basicfx_webbrowser.browser;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Collection;
+
+import com.google.gson.Gson;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import javafx.scene.web.WebEngine;
 
 /**
  * Store and save data about the current browsing session.
@@ -19,12 +16,11 @@ import javafx.scene.web.WebEngine;
 public final class SessionManager extends JsonManager<JSONArray> {
     
     // - Class Attributes -------
-    private JSONArray session;
+    private Gson gson = new Gson();
 
 
     // - Class Constructors -------
     public SessionManager() {
-        this.session = this.json;
     }
 
 
@@ -36,25 +32,37 @@ public final class SessionManager extends JsonManager<JSONArray> {
 
 
     public boolean addTab(SessionEntry entry) {
-        return json.add(entry);
+        return json.add(gson.toJson(entry));
     }
 
 
-    public boolean addTab(int id, SessionEntry entry) {
-        if (json.get(id) != null)
-            if (json.add(json.remove(id)))
-                return json.add(entry);
-        return false;
-    }
+    // public boolean insertTabAt(int id, SessionEntry entry) {
+    //     // TODO: make this work if rearranging tab feature gets implemented
+    //     int size = json.size();
+    //     if (id > size) return false;
+    //     if (id == size) return json.add(gson.toJson(entry));
+    //     if (json.get(id) != null)
+    //         if (json.add(json.remove(id)))
+    //             return json.add(entry);
+    //     return false;
+    // }
 
 
     public ArrayList<SessionEntry> asList() {
-        return (ArrayList<SessionEntry>) json.subList(0, json.size()-1);
+        ArrayList<SessionEntry> temp = new ArrayList<>();
+        json.subList(0, json.size()-1).forEach((entry) -> {
+            temp.add(gson.fromJson((String) entry, SessionEntry.class));
+        });
+        return temp;
     }
 
 
     public ArrayList<SessionEntry> asList(int startIndex, int endIndex) {
-        return (ArrayList<SessionEntry>) json.subList(0, json.size()-1);
+        ArrayList<SessionEntry> temp = new ArrayList<>();
+        json.subList(startIndex, endIndex).forEach((entry) -> {
+            temp.add(gson.fromJson((String) entry, SessionEntry.class));
+        });
+        return temp;
     }
 
 

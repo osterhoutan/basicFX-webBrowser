@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Tooltip?>
 
 <!-- Javafx Imports -->
 <!-- FXML Style Sheets -->
@@ -31,13 +32,14 @@
     */
  -->
 <!-- Sub Scene Graph -->
-<Tab xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.menu.SettingsController" fx:id="tab" text="&#2606;">
+<Tab xmlns="http://javafx.com/javafx/8" 
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="basicfx_webbrowser.control.menu.BookmarkController" fx:id="tab" text="&#x2605;">
     <content>
 
-        <VBox>
+        <VBox fx:id="tabRoot">
             <children>
                 <!-- Title/Header -->
-                <Label styleClass="h1" text="Bookmarks:" />
+                <Label styleClass="h1" text="&#x2605; Bookmarks:" />
 
                 <!-- Add Bookmark Menu -->
                 <TitledPane fx:id="editBMrkMenuTitle" styleClass="h2" text="Add/Edit Bookmark" VBox.vgrow="NEVER">
@@ -61,10 +63,16 @@
                             <TextField fx:id="urlField" onAction="#saveChanges" promptText="Bookmark URL" styleClass="h3" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="20.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                                 <items>
-
-                                    <Button fx:id="btnCancel" onAction="#cancelChanges" text="✘" />
-
-                                    <Button fx:id="btnSave" onAction="#saveChanges" text="✔" />
+                                    <Button fx:id="btnSave" onAction="#saveChanges" text="✔">
+                                        <tooltip>
+                                            <Tooltip text="Save" />
+                                        </tooltip>
+                                    </Button>
+                                    <Button fx:id="btnCancel" onAction="#cancelChanges" text="✘">
+                                        <tooltip>
+                                            <Tooltip text="Cancel" />
+                                        </tooltip>
+                                    </Button>
                                 </items>
                             </ToolBar>
                             <columnConstraints>
@@ -81,9 +89,41 @@
                 </TitledPane>
 
                 <!-- Bookmark View -->
+                <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" VBox.vgrow="NEVER">
+                    <items>
+                        <Button fx:id="btnDelete" onAction="#removeBookmark" styleClass="h3" text="✘">
+                            <tooltip>
+                                <Tooltip text="Delete Selected Bookmark" />
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="btnNewBookmark" onAction="#addBookmark" styleClass="h3" text="&#x271a;">
+                            <tooltip>
+                                <Tooltip text="Add New Bookmark" />
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="btnEditBookmark" onAction="#editBookmark" styleClass="h3" text="&#x1f589;">
+                            <tooltip>
+                                <Tooltip text="Edit Selected Bookmark" />
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="btnRefresh" onAction="#refreshBookmarks" styleClass="h3" text="⟳">
+                            <tooltip>
+                                <Tooltip text="Refresh Bookmark List" />
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="btnOpen" onAction="#openBookmark" styleClass="h3" text="&#x1f7c8;">
+                            <tooltip>
+                                <Tooltip text="Open Selected Bookmark" />
+                            </tooltip>
+                        </Button>
+                    </items>
+                    <VBox.margin>
+                        <Insets bottom="-4.0" top="16.0" />
+                    </VBox.margin>
+                </ToolBar>
                 <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                     <children>
-                        <ListView fx:id="listView" HBox.hgrow="ALWAYS" editable="false">
+                        <ListView fx:id="listView" HBox.hgrow="ALWAYS" editable="false" onMouseClicked="#itemClicked">
                             <padding>
                                 <Insets bottom="16.0" left="8.0" right="8.0" top="8.0" />
                             </padding>

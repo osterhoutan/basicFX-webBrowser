@@ -2,7 +2,10 @@ package basicfx_webbrowser.control;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
+import basicfx_webbrowser.Global;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +33,9 @@ public class BrowserController extends FXML_Controller {
 
 
     // - Controller Initialization Method --------
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Global.browserGUI = this;
     }
 
 
@@ -38,12 +43,18 @@ public class BrowserController extends FXML_Controller {
     @FXML
     public void newTab(Event ev) {
         if (!newTab.selectedProperty().get()) return;
+        newTab(Global.settings.getStartPage());
+    } 
+    
+    
+    public void newTab(String url) {
         try {
             browserTabs.getTabs().remove(newTab);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/tab.fxml"));
             Tab tab = new Tab();
             BorderPane tabRoot = loader.load(); 
             tab.setContent(tabRoot);
+            tab.setOnClosed((ev) -> { if (browserTabs.getTabs().size()<=1) Platform.exit(); });
             WebTabController controller = loader.getController();
             tabControllers.add(controller);
             controller.getPageTitle().addListener((ob, ov, nv) -> {
@@ -52,15 +63,11 @@ public class BrowserController extends FXML_Controller {
                 else
                     tab.setText(controller.getCurrentURL());
             });
+            controller.loadPage(url);
             browserTabs.getTabs().add(tab);
             browserTabs.getTabs().add(newTab);
             browserTabs.getSelectionModel().select(tab);
-        } catch (Exception ex) {System.out.println("Failed to convert tabRoot. (BrowserController.newTab(Event ev): 58)\n\t"+ex.getMessage()); } //ex.printStackTrace(); }
-    } 
-    
-    
-    public void newTab(URL url) {
-        
+        } catch (Exception ex) {System.out.println("Failed to convert tabRoot. (BrowserController.newTab(String url): 58)\n\t"+ex.getMessage()); } //ex.printStackTrace(); }
     } 
 
 }

@@ -15,6 +15,10 @@ WebView {
     -fx-context-menu-enabled: true;
 }
 
+ScrollPane {
+    -fx-background-color: null;
+}
+
 .h1 {
     -fx-font-size: 24px;
     /* -fx-font-weight: bold; */
@@ -28,4 +32,9 @@ WebView {
 .h3 {
     -fx-font-size: 14px;
     /* -fx-font-weight: bold; */
+}
+
+.message {
+    -fx-font-size: 12px;
+    -fx-font-color: red;
 }

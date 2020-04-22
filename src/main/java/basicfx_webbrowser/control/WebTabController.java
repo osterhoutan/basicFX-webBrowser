@@ -1,5 +1,8 @@
 package basicfx_webbrowser.control;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import basicfx_webbrowser.Global;
 
 // import org.apache.commons.validator.UrlValidator;
@@ -7,12 +10,14 @@ import basicfx_webbrowser.Global;
 import basicfx_webbrowser.myfx.browser.tab.OmniBar;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.concurrent.Worker.State;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
@@ -27,7 +32,7 @@ public class WebTabController extends FXML_Controller {
 
     // - FXML Objects --------
     @FXML private BorderPane tabRoot;
-    // @FXML private HBox webBar;
+    @FXML private VBox webBar;
     @FXML private HBox browserBar;
     @FXML private Button backBtn;
     @FXML private Button fwdBtn;
@@ -41,16 +46,18 @@ public class WebTabController extends FXML_Controller {
     private AnchorPane popUpPane;
     private WebEngine engine;
     private WebHistory history;
-    private String homeURL = Global.settings.getHomePage();
+    private String homeURL = Global.settings.getStartPage();
     // private boolean loading = true;
     // private UrlValidator urlValidator = new UrlValidator();
 
 
 
     // - Controller initialization Method --------
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         engine = webView.getEngine();
         history = engine.getHistory();
+        engine.setUserAgent(Global.webAgentName);
 
         // - define bindings ------------
         omnibar.minWidthProperty().bind(tabRoot.widthProperty().subtract(
@@ -58,6 +65,7 @@ public class WebTabController extends FXML_Controller {
                         refreshBtn.widthProperty().add(bookmarkBtn.widthProperty().add(16))
                     ))
                 ));
+        browserBar.maxWidthProperty().bind(webBar.widthProperty());
         // webView.maxWidthProperty().bind(browserBar.widthProperty().add(4));
 
         // - set up load listener ----------
@@ -66,13 +74,11 @@ public class WebTabController extends FXML_Controller {
         // - set up Current Web page Listener ------
         engine.locationProperty().addListener((ob, ov, nv) -> {
             Global.history.addHistory(nv);
+            try { Global.historyGUI.updateHistory(); } catch (Exception ex) {System.err.println("initialization sluggishness");}
             omnibar.setText(nv);
             checkBmkState(nv);
             checkNavState();
         });
-        
-        engine.load(homeURL);
-        Global.history.addHistory(homeURL);
     }
 
 
@@ -115,10 +121,16 @@ public class WebTabController extends FXML_Controller {
         if (Global.bookmarks.isBookmark(url))
             Global.bookmarks.removeBookmarkByURL(url);
         // - if page is not already bookmarked ----
-
+        else 
+            Global.bookmarkGUI.startAddingBookmark(url);
 
         // - refresh the state of the bookmark button ----
+        Global.bookmarkGUI.refreshBookmarks(new ActionEvent());
+        // try { Thread.sleep(50); } catch (Exception ex) { System.err.println("Thread failed to sleep (WebTabController: 126)"); }
         checkBmkState(url);
+        // try { Thread.sleep(60_000L); } catch (Exception ex) { System.err.println("Thread failed to sleep (WebTabController: 129)"); }
+        checkBmkState(url);
+        Global.bookmarkGUI.refreshBookmarks(new ActionEvent());
     }
 
 
@@ -134,10 +146,14 @@ public class WebTabController extends FXML_Controller {
         return engine.titleProperty(); 
     }
 
+    public void loadPage(String url) {
+        engine.load(url);
+    }
+
 
     // - Private Controller Methods ------
     public String getCurrentURL() {
-        return engine.getLocation();
+        return engine.getLocation().replaceFirst("#.*$", "");
     }
 
     private void navigate(String url) {
@@ -158,7 +174,7 @@ public class WebTabController extends FXML_Controller {
     private void checkNavState() {
         int current = history.getCurrentIndex();
         backBtn.setDisable((current == 0));
-        fwdBtn.setDisable((current >= history.getEntries().size()-2));
+        fwdBtn.setDisable((current >= history.getEntries().size()-1));
     }
 
 
@@ -171,6 +187,7 @@ public class WebTabController extends FXML_Controller {
                 bookmarkBtn.setDisable(false);
                 refreshBtn.setText("\u27f3");
                 checkNavState();
+                checkBmkState(getCurrentURL());
                 break;
             }
             case RUNNING:

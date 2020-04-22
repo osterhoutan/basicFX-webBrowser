@@ -19,40 +19,28 @@ import org.json.simple.JSONObject;
 public final class HistoryManager extends JsonManager<JSONArray> {
 
     // - Class Attributes -------
-    
+    // private ArrayList<HistoryEntry> histroyArray;
 
 
     // - Class Constructors -------
     public HistoryManager() {
-
+        // historyArray = (ArrayList<HistoryEntry>) json; 
     }
 
 
     // - Public Methods --------
     public void addHistory(String url) {
-        JSONObject entry = new JSONObject();
-        entry.put("time", new SimpleDateFormat("yyyy/MM/dd E HH:mm:ss.SS (z)").format(new Date()));
-        entry.put("url", url);
-        json.add(entry);
+        json.add(0, new HistoryEntry(url));
         try { this.write(); } catch (Exception ex) {System.out.println("\n\n\tERROR: Failed to save history.\n");}
     }
 
 
-    public ArrayList<HistoryEntry> getHistory() {
-        ArrayList<HistoryEntry> history = new ArrayList<>();
-        json.forEach(i -> {
-            JSONObject item = (JSONObject) i;
-            HistoryEntry entry = new HistoryEntry((String) item.get("url"), (String) item.get("time"));
-            history.add(entry);
-        });
-        return history;
+    public JSONArray getHistory() {
+        return json;
     }
 
-    public boolean remove(HistoryEntry entry) {    
-        JSONObject item = new JSONObject();
-        item.put("url", entry.url);    
-        item.put("time", entry.time);    
-        return json.contains(item);
+    public boolean remove(HistoryEntry entry) {        
+        return json.remove(entry);
     }
 
     public void clear() {

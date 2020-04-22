@@ -36,12 +36,13 @@ public final class BookmarkManager extends JsonManager<JSONObject> {
         return json.containsValue(url);
     }
 
-    public void addBookmark(String name, String url) {
+    public boolean addBookmark(String name, String url) {
         name = name.trim();
         if (json.containsKey(name)) 
             name = addBookmark(name, url, 1);
-        json.put(name, url.trim());
+        Object result = json.put(name, url.trim());
         try { this.write(); } catch (Exception ex) {System.out.println("\n\n\tERROR: failed to save bookmarks.\n");}
+        return result==null;
     }
 
     private String addBookmark(String name, String url, int modifier) {
@@ -49,6 +50,18 @@ public final class BookmarkManager extends JsonManager<JSONObject> {
         if (json.containsKey(newName))
             return addBookmark(name, url, ++modifier);
         return newName;
+    }
+
+    public boolean updateBookmark(String oldName, String name, String url) {
+        if (!json.containsKey(oldName)) return false;
+        json.remove(oldName);
+        return addBookmark(name, url);
+    }
+    
+    public boolean updateBookmark(String oldName, String name) {
+        if (!json.containsKey(oldName)) return false;
+        String url = (String) json.remove(oldName);
+        return addBookmark(name, url);
     }
 
     public boolean removeBookmark(String name) {

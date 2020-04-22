@@ -3,10 +3,11 @@ package basicfx_webbrowser.browser;
 import javafx.scene.web.WebEngine;
 
 public class SessionEntry {
-    public int id;
     public boolean pinned;
     public String url;
     public WebEngine engine;
+
+    public SessionEntry() {}
 
     public SessionEntry(String url, WebEngine engine, boolean pinned) {
         this.engine = engine;

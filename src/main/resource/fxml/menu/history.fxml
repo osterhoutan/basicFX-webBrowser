@@ -10,6 +10,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.Tooltip?>
 
 <!-- Javafx Imports -->
 <!-- FXML Style Sheets -->
@@ -30,18 +31,37 @@
     <content>
 
 
-        <VBox>
+        <VBox fx:id="tabRoot">
             <children>
-                <Label styleClass="h1" text="History:" />
+                <Label styleClass="h1" text="&#x231b; History:" />
                 <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" VBox.vgrow="NEVER">
                     <items>
-                        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteEntry" styleClass="h3" text="✘" />
+                        <Button fx:id="btnClear" mnemonicParsing="false" onAction="#clearAllEntries" styleClass="h3" text="&#x239a;">
+                            <tooltip>
+                                <Tooltip text="Clear All Entries" />
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteEntry" styleClass="h3" text="✘">
+                            <tooltip>
+                                <Tooltip text="Delete Selected Entry" />
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="btnOpen" onAction="#openEntry" styleClass="h3" text="&#x1f7c8;" >
+                            <tooltip>
+                                <Tooltip text="Open Selected Entry" />
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="btnRefresh" onAction="#refreshEntries" styleClass="h3" text="⟳">
+                            <tooltip>
+                                <Tooltip text="Refresh History List" />
+                            </tooltip>
+                        </Button>
                     </items>
                     <VBox.margin>
                         <Insets bottom="-4.0" top="16.0" />
                     </VBox.margin>
                 </ToolBar>
-                <ListView fx:id="listView" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                <ListView fx:id="listView" onMouseClicked="#itemClicked" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <padding>
                         <Insets bottom="16.0" left="8.0" right="8.0" top="8.0" />
                     </padding>

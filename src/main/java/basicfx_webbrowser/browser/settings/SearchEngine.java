@@ -8,11 +8,11 @@ public enum SearchEngine {
 
     GOOGLE	("Google", "https://www.google.com/search?q=%s", "google:"),
         G_SCHOLAR	("Google Scholar", "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C45&q=%s", "gscholar:"),
-            SCHOLAR	("Google Scholar", "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C45&q=%s", "scholar:"),
+            // SCHOLAR	("Google Scholar", "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C45&q=%s", "scholar:"),
         G_IMAGES	("Google Images", "https://www.google.com/search?tbm=isch&q=%s", "gimages:"),
-            IMAGES	("Google Images", "https://www.google.com/search?tbm=isch&q=%s", "images:"),
+            // IMAGES	("Google Images", "https://www.google.com/search?tbm=isch&q=%s", "images:"),
         YOUTUBE     ("Youtube", "https://www.youtube.com/results?q=%s", "youtube:"),
-            VIDEOS     ("Youtube", "https://www.youtube.com/results?q=%s", "video:"),
+            // VIDEOS     ("Youtube", "https://www.youtube.com/results?q=%s", "video:"),
     BING	("Bing", "https://www.bing.com/search?q=%s&qs=ds&form=QBLH", "bing:"),
     DUCK	("Duck Duck GO", "https://duckduckgo.com/?q=%s&kp=-1&kl=us-en", "duck:"),
         // DDG	("Duck Duck GO", "https://duckduckgo.com/?q=%s&kp=-1&kl=us-en", "ddg:"),
@@ -82,6 +82,14 @@ public enum SearchEngine {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getQueryURL() {
+        return this.queryURL;
+    }
+
+    public String getSearchHeader() {
+        return this.searchHeader;
     }
 
 

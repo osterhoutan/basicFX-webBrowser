@@ -1,15 +1,18 @@
 package basicfx_webbrowser.control;
 
-// - my code imports ----
-import basicfx_webbrowser.myfx.*;
-import basicfx_webbrowser.myfx.menu.*;
-import basicfx_webbrowser.myfx.browser.*;
-import basicfx_webbrowser.browser.*;
-// - javafx imports ----
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
-import javafx.beans.property.*;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import basicfx_webbrowser.Global;
+import basicfx_webbrowser.browser.BookmarkManager;
+import basicfx_webbrowser.browser.HistoryManager;
+import basicfx_webbrowser.browser.SettingsManager;
 import javafx.fxml.FXML;
+// - javafx imports ----
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 
 /**
@@ -31,14 +34,13 @@ public class MainController extends FXML_Controller {
 
 
     // - Controller Attributes --------
-    private BookmarkManager bookmarkManager;
-    private HistoryManager historyManager;
-    private SettingsManager settingsManager;
 
 
 
     // - Controller initialization Method --------
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Global.appGUI = this;
         // - Create the managers ----
         // BorderPane.
         // bookmarkManager = 

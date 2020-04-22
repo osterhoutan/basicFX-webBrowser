@@ -3,6 +3,7 @@
 <!-- Javafx Imports -->
 
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.HBox?>
 
 <!-- FXML Style Sheets -->
@@ -24,10 +25,9 @@
         fx:controller="basicfx_webbrowser.control.MenuController"
         styleClass="menu-pane" >
     <children>
-        <TabPane    
-            fx:id="toolTabPane" 
-                side="LEFT" styleClass="tool-tab-pane" 
-                tabClosingPolicy="UNAVAILABLE" >
+        <TabPane fx:id="toolTabPane" onMouseClicked="#clicked"
+            side="LEFT" styleClass="tool-tab-pane"
+            tabClosingPolicy="UNAVAILABLE" >
             <tabs>
                 <fx:include fx:id="bookmarkToolTab" source="menu/bookmarks.fxml" styleClass="tool-tab" />
                 <fx:include fx:id="historyToolTab" source="menu/history.fxml" styleClass="tool-tab" />
@@ -35,5 +35,6 @@
                 <fx:include fx:id="settingsToolTab" source="menu/settings.fxml" styleClass="tool-tab" />
             </tabs>
         </TabPane>
+        <Separator orientation="VERTICAL"  />
     </children>
 </HBox>
