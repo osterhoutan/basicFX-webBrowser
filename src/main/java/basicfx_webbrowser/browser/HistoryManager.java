@@ -31,7 +31,7 @@ public final class HistoryManager extends JsonManager<JSONArray> {
     // - Public Methods --------
     public void addHistory(String url) {
         json.add(0, new HistoryEntry(url));
-        try { this.write(); } catch (Exception ex) {System.out.println("\n\n\tERROR: Failed to save history.\n");}
+        try { this.write(); } catch (Exception ex) {System.err.println("\n\n\tERROR: Failed to save history.\n");}
     }
 
 

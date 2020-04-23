@@ -47,7 +47,7 @@ public class MenuController extends FXML_Controller {
     @FXML
     public void clicked(MouseEvent mev) {
         if (mev.getClickCount() >= 2 || Global.settings.getMenuState()) {
-            // System.out.println("Menu Toggle Activated");    // DEBUG: check double click behavior
+            // System.err.println("Menu Toggle Activated");    // DEBUG: check double click behavior
             Global.settings.toggleMenuState();
             setMenuState();
          }  

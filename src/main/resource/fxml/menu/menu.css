@@ -34,7 +34,23 @@ ScrollPane {
     /* -fx-font-weight: bold; */
 }
 
-.message {
+TextFlow {
+    -fx-padding: 4 0 4 0;
+}
+
+.normal {
+    -fx-font-family: 'sans-serif';
     -fx-font-size: 12px;
+}
+
+.message {
+    -fx-font-size: 10px;
     -fx-font-color: red;
+}
+
+.code {
+    -fx-background-color: #8f9eac55;
+    -fx-background-radius: 4px;
+    -fx-background-insets: 2px;
+    -fx-font-family: 'monospace';
 }

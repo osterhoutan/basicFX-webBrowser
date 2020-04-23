@@ -41,7 +41,7 @@ public final class BookmarkManager extends JsonManager<JSONObject> {
         if (json.containsKey(name)) 
             name = addBookmark(name, url, 1);
         Object result = json.put(name, url.trim());
-        try { this.write(); } catch (Exception ex) {System.out.println("\n\n\tERROR: failed to save bookmarks.\n");}
+        try { this.write(); } catch (Exception ex) {System.err.println("\n\n\tERROR: failed to save bookmarks.\n");}
         return result==null;
     }
 

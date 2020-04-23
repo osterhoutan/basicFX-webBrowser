@@ -1,5 +1,6 @@
 package basicfx_webbrowser.control.menu;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,6 +19,9 @@ import javafx.scene.control.SelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -138,6 +142,36 @@ public class SettingsController extends FXML_Controller {
     public void cancelChanges(Event ev) {
         updateSettingsGUI();
         unsavedChanges.set(false);
+    }
+
+    @FXML
+    public void openSettingsFile(Event ev) {
+        try {
+            Runtime.getRuntime().exec('"'+Global.settings.getFilePath()+'"');
+        } catch (Exception ex) {
+            final ClipboardContent content = new ClipboardContent();
+            content.put(DataFormat.PLAIN_TEXT, Global.settings.getFilePath());
+            System.err.println("\n\n\tERROR: Failed to open the Settings file (`"+content.getString()+"`) on this system\n\n\t\tCopied the contents to your system clipboard instead.\n\n");
+            ex.printStackTrace(System.err);
+            Clipboard.getSystemClipboard().setContent(content);
+        }
+    }
+
+    @FXML
+    public void openAppData(Event ev) {
+        final ClipboardContent content = new ClipboardContent();
+        content.put(DataFormat.PLAIN_TEXT, (new File(Global.appDataDir)).getAbsolutePath());
+        Clipboard.getSystemClipboard().setContent(content);
+    }
+
+    @FXML
+    public void openSettingsHelpPage(Event ev) {
+
+    }
+
+    @FXML
+    public void openCustomHelpPage(Event ev) {
+
     }
 
 

@@ -31,6 +31,6 @@
         tabClosingPolicy="SELECTED_TAB" >
     <tabs>
         <!-- <WebTab text="new tab"/> -->
-        <Tab fx:id="newTab" styleClass="new-tab" text="&#xFF0B;" onSelectionChanged="#newTab" />
+        <Tab fx:id="newTab" disable="true" styleClass="new-tab" text="&#xFF0B;" onSelectionChanged="#newTab" />
     </tabs>
 </TabPane>

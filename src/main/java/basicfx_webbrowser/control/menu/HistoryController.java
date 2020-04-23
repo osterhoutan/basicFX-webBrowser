@@ -95,7 +95,7 @@ public class HistoryController extends FXML_Controller {
     public void itemClicked(MouseEvent mev) {
         if (mev.getClickCount() >= 2) {
             JSONObject selected = selection.getSelectedItem();
-            System.out.printf("Item (%s) was Selected\n", selected.get("time") +" -> "+ selected.get("url"));    // DEBUG: check double click behavior
+            System.err.printf("Item (%s) was Selected\n", selected.get("time") +" -> "+ selected.get("url"));    // DEBUG: check double click behavior
             Global.browserGUI.newTab((String) selected.get("url"));
          }  
     }

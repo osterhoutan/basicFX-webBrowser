@@ -1,37 +1,18 @@
 package basicfx_webbrowser.browser;
 
-import javafx.scene.web.WebEngine;
+import java.util.ArrayList;
+
+import javafx.scene.web.WebHistory;
+import javafx.scene.web.WebHistory.Entry;
 
 public class SessionEntry {
-    public boolean pinned;
-    public String url;
-    public WebEngine engine;
+    public int currentIndex;
+    public ArrayList<Entry> history = new ArrayList<>();
 
     public SessionEntry() {}
 
-    public SessionEntry(String url, WebEngine engine, boolean pinned) {
-        this.engine = engine;
-        this.url = url;
-        this.pinned = pinned;
-    }
-
-    public SessionEntry(String url, WebEngine engine) {
-        this.engine = engine;
-        this.url = url;
-        this.pinned = false;
-    }
-
-    public SessionEntry(WebEngine engine) {
-        var temp = engine.getHistory().getEntries();
-        this.engine = engine;
-        this.url = temp.get(temp.size()-1).toString();
-        this.pinned = false;
-    }
-
-    public SessionEntry(WebEngine engine, boolean pinned) {
-        var temp = engine.getHistory().getEntries();
-        this.engine = engine;
-        this.url = temp.get(temp.size()-1).toString();
-        this.pinned = pinned;
+    public SessionEntry(WebHistory history) {
+        this.history.addAll(history.getEntries());
+        this.currentIndex = history.getCurrentIndex();
     }
 }

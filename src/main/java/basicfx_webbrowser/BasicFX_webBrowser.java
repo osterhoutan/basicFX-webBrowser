@@ -1,16 +1,13 @@
 package basicfx_webbrowser;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 
-import basicfx_webbrowser.browser.BookmarkManager;
-import basicfx_webbrowser.browser.HistoryManager;
 import basicfx_webbrowser.browser.SessionManager;
-import basicfx_webbrowser.browser.SettingsManager;
 // import basicfx_webbrowser.chat.*;
 // - javafx imports ----
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,14 +30,15 @@ public class BasicFX_webBrowser extends Application {
             launch(args);
         } catch (Exception ex) {
             if (ex!=exitException) {
-                System.out.printf("\n%s\n", ex.getMessage());
-                ex.printStackTrace(); 
+                System.err.printf("\n%s\n", ex.getMessage());
+                ex.printStackTrace(System.err); 
             }
             System.exit(0);
         }
     }
 
     private Scene scene;
+    private SessionManager session = Global.session;
 
 
     @Override
@@ -54,7 +52,7 @@ public class BasicFX_webBrowser extends Application {
 
         // - Load the JavaFXML ----
         URL mainFXML = getClass().getResource("/fxml/main.fxml");
-        // System.out.printf("\n\n\t%s\n\n\n", mainFXML); 
+        // System.err.printf("\n\n\t%s\n\n\n", mainFXML); 
         Parent root = FXMLLoader.load(mainFXML);
 
         // - create the scene --------
@@ -67,7 +65,7 @@ public class BasicFX_webBrowser extends Application {
         mainStage.setScene(scene);
 
         // - Additional Action ----
-
+        
 
         // - Display the GUI ----
         mainStage.show();
@@ -82,12 +80,12 @@ public class BasicFX_webBrowser extends Application {
         Global.settings.read();
         Global.bookmarks.read();
         Global.history.read();
-        if (Global.settings.doRestore()) Global.session.read();
+        Global.session.read();
     }
 
     @Override
     public void stop() throws Exception {
-        // System.out.println("Stage is closing");     // DEBUG: test to see if called on close
+        // System.err.println("Stage is closing");     // DEBUG: test to see if called on close
         try {
             Global.settings.write();
             Global.bookmarks.write();
@@ -96,8 +94,8 @@ public class BasicFX_webBrowser extends Application {
         } catch (IOException ex) {
             ex.printStackTrace(System.err);
         }
-        // System.exit(0);
-        throw exitException;
+        System.exit(0);            
+        // throw exitException;     // DEBUG: to get exceptions printed to console comment out the `System.exit(0);` line and comment in this one
     }
 
 

@@ -41,15 +41,11 @@ public class MainController extends FXML_Controller {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Global.appGUI = this;
-        // - Create the managers ----
-        // BorderPane.
-        // bookmarkManager = 
-        // browser.spacer.widthProperty().bind(menu.toolTabPane.widthProperty());
     }
 
 
     // - Controller Methods --------
-    
+      
 
 
 }

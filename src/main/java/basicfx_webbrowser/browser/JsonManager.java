@@ -13,7 +13,7 @@ import org.json.simple.parser.JSONParser;
 abstract class JsonManager<O extends Object> {
 
     // - Class Attributes -----------
-    private File file;
+    protected File file;
     O json;
 
 

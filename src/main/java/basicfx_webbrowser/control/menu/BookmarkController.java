@@ -43,7 +43,7 @@ public class BookmarkController extends FXML_Controller {
     @FXML private Button btnNewBookmark;
     @FXML private Button btnEditBookmark;
     @FXML private Button btnRefreshBookmarks;
-    @FXML private Button btnOpenBookmark;
+    @FXML private Button btnOpen;
 
     // - Controller Attributes ------------
     private ObservableList<String> bookmarkList;
@@ -71,7 +71,7 @@ public class BookmarkController extends FXML_Controller {
             boolean value = nv.intValue()<0;    
             btnDelete.setDisable(value);
             btnEditBookmark.setDisable(value);
-            btnOpenBookmark.setDisable(value);
+            btnOpen.setDisable(value);
         });
     }
 
@@ -153,7 +153,7 @@ public class BookmarkController extends FXML_Controller {
     public void itemClicked(MouseEvent mev) {
         if (mev.getClickCount() >= 2) {
             String selected = selection.getSelectedItem();
-            // System.out.printf("Item (%s) was Selected\n", selected);    // DEBUG: check double click behavior
+            // System.err.printf("Item (%s) was Selected\n", selected);    // DEBUG: check double click behavior
             Global.browserGUI.newTab(Global.bookmarks.getURL(selected));
             selection.clearSelection();
          }  

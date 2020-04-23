@@ -18,6 +18,7 @@ public final class Global {
     public static final String webKitBase = "AppleWebKit/555.99 JavaFX 8.0";
     public static final String appDataDir = "AppData/";
     public static final String urlRegEx = "^(http[s]?:\\/\\/)?[^\\s([\"<,>]*\\.\\[^\\[\",><]*$";
+    public static final String absFilePathRegEx = "^(?:[fF]ile\\:(?:[\\/\\\\](?:(?:\\d{1,3}\\.){3}\\d{1,3}(?:\\:\\d{1,6})?|(?:[a-zA-Z0-9_]{3,}))?[\\/\\\\]|[\\/\\\\]{2}))?(?:[a-zA-Z]:|~|%[A-Z_]{3,}%|\\$\\{?.+\\}?)?[\\/\\\\](?:[^\\{\\}\\[\\]\\n\\t\\&\\%\\$\\#\\@\\*\\=\\^\\~\\`\\;\\,\\<\\>\\!\\:\\/\\\\]{3,}[/\\\\])*[^\\{\\}\\[\\]\\n\\t\\&\\%\\$\\#\\@\\*\\=\\^\\~\\`\\;\\,\\<\\>\\!\\:\\/\\\\]{3,}[^/\\\\]$";
 
     public static final String webAgentName = String.format("%s %s - %s", name, version, webKitBase);
 

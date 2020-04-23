@@ -22,7 +22,9 @@
 
 .menu-pane, .tool-tab {
     -fx-max-width: 512px;
+    -fx-pref-width: 256px;
     -fx-min-height: 512px;
+    -fx-min-width: 128px;
     /* -fx-preferred-width: 128; */
     /* -fx-preferred-height: 1024; */
 }

@@ -1,4 +1,4 @@
-package basicfx_webbrowser.myfx.browser.tab;
+package basicfx_webbrowser.myfx;
 
 import java.net.URL;
 
@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 public class OmniBar extends TextField {
 
     // - Class Attributes -----------
-
+    
 
 
     // - Class Constructors ----------
@@ -37,7 +37,7 @@ public class OmniBar extends TextField {
         try {
             input = Global.settings.getSearchEngine().compileQueryURL(input);
         } catch (Exception ex) {
-            System.out.println("\n\n\tERROR: SearchEngine.compileQueryURL() failed to make a valid URL\n"); // DEBUG: See search URL's are being made properly 
+            System.err.println("\n\n\tERROR: SearchEngine.compileQueryURL() failed to make a valid URL\n"); // DEBUG: See search URL's are being made properly 
             return null;
         }
         return input;

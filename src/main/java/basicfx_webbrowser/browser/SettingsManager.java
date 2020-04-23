@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.jar.Attributes.Name;
 
 import org.json.simple.JSONObject;
 
@@ -127,12 +126,13 @@ public final class SettingsManager extends JsonManager<JSONObject> {
             return "https://www.google.com";
         String url = (String) json.get("homePage");
         if (isValidURL(url)) return url;
-        return "https://www.google.com";
+        return getErrorPage().toExternalForm();
     }
 
 
     public String getStartPage() {
-        if (isNewTabHome()) return "https://www.google.com";
+        if (isNewTabHome()) 
+            return getNewTabPage().toExternalForm();
         return getHomePage();
     }
 
@@ -143,11 +143,27 @@ public final class SettingsManager extends JsonManager<JSONObject> {
         return true;
     }
 
+    public URL getNewTabPage() {
+        if (json.containsKey("newTabPage"))
+            try {
+                return getAsset((String) json.get("newTabPage"), "html/newTab/");
+            } catch (Exception ex) {
+                System.err.println("\n\n\tERROR: User Defined `\"newTabPage\"` asset-location/file-path as specified in `settings.json` does not exist\n");
+                ex.printStackTrace(System.err);  
+            }
+        return getClass().getResource("/html/newTab/default/tab.html");
+    }
 
-    public String getErrorPage() {
+
+    public URL getErrorPage() {
         if (json.containsKey("errorPage"))
-            return "/theme/"+ (String) json.get("errorPage");
-        return "/theme/"+ "404.html";
+            try {
+                return getAsset((String) json.get("newTabPage"), "html/error/");
+            } catch (Exception ex) {
+                System.err.println("\n\n\tERROR: User Defined `\"errorPage\"` asset-location/file-path as specified in `settings.json` does not exist\n");
+                ex.printStackTrace(System.err);  
+            }
+        return getClass().getResource("/html/error/default/index.html");
     }
 
 
@@ -210,6 +226,10 @@ public final class SettingsManager extends JsonManager<JSONObject> {
         userThemeFiles.addAll(Arrays.asList(userThemeDir.listFiles()));
     }
 
+    public String getFilePath() {
+        return file.getAbsolutePath();
+    }
+
 
 
     // - Class Private Methods -----------
@@ -235,6 +255,22 @@ public final class SettingsManager extends JsonManager<JSONObject> {
         } catch (Exception ex) {
             System.err.println("\n\n\tERROR: failed to find built in Themes Directory (SettingsManager.updateKnownThemes(): 175)\n\n");
             ex.printStackTrace(System.err);
+        }
+    }
+
+    private boolean isAbsoluteFilePath(String path) {
+        return path.matches(Global.absFilePathRegEx);
+    }
+
+
+    private URL getAsset(String asset, String defaultDir) throws Exception {
+        if (isValidURL(asset)) return new URL(asset);
+        if (isAbsoluteFilePath(asset)) 
+            return (new File(asset)).toURI().toURL();
+        try {
+            return (new File(Global.appDataDir+defaultDir+asset)).toURI().toURL();
+        } catch (MalformedURLException ex) {
+            return getClass().getResource('/'+defaultDir+asset).toURI().toURL();
         }
     }
 
