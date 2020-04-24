@@ -7,7 +7,9 @@ _Final Project: basicFX-webBrowser_
 
 
 ## About:
-This is a basic web browser with some limited themeing options and basic history and bookmarking features built in
+This is a basic web browser with some limited themeing options and basic history and bookmarking features built in.
+
+![Start up Page](doc/img/StartupScrene.png)
 
 ### Disclaimer:
 This is a basic web browser built using JavaFX in using JDK-10 (which was out of support when made), as a final project for Utah State University's (USU) CS2410 Event Driven Programing and GUI's course.
@@ -27,6 +29,15 @@ It exists on the web as the beginnings of a personal portfolio, and an exercise 
     - [vs-code:](#vs-code)
     - [Other IDEs:](#other-ides)
     - [Command line:](#command-line)
+  
+- ### Documentation:
+  - [Assignment Description](doc/assignmentDescription.md)
+  - [Credit](#credit)
+    - [Developer(s):](#developers)
+    - [Third Party Assets and Libraries:](#third-party-assets-and-libraries)
+      - [Java External Libraries:](#java-external-libraries)
+      - [JavaFX CSS themes:](#javafx-css-themes)
+      - [HTML page Assets:](#html-page-assets)
 <br/><br/>
 
 
@@ -61,7 +72,7 @@ git clone <URL/SSH> basicFX-webBrowser
 Then run it in the development environment of your choice using jdk-10 (available to download via the oracle archives [here](https://www.oracle.com/java/technologies/java-archive-javase10-downloads.html)).
 
 ### vs-code:
-If you want to run the application, this repo contains all of the vs-code workspace files nessisary to run it in vs code with the [Java Extension pack](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) installed along with 
+If you want to run the application, this repo contains all of the vs-code workspace files nessisary to run it in vs code with the [Java Extension pack](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) installed along with it.  In addition you will need to set your `"java.home"` setting to your copy of the JDK10, or use the `>java: COnfigure Java Runtime` command from the command pallet and do it there.
 
 ### Other IDEs:
 If you are usign another IDE vs-code's java language server implements Eclipse's project format so you can usually just import it as a Eclipse project into an IDE like IntelliJ (by jet-brains), Eclipse or NetBeans with minimal issues.

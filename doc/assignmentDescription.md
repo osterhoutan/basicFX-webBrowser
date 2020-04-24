@@ -1,6 +1,7 @@
 <p><h1>Final Project</h1></p>
-<p><span style="font-weight: 400;">Due December 6th 11:59pm</span></p>
+<p><span style="font-weight: 400;">Due April 24th 11:59pm</span></p>
 <p><span style="font-weight: 400;">150 points</span></p>
+<p><br><br><br></p>
 <p><br><br><br></p>
 <p><h2>Project Requirements</h2></p>
 <p><span style="font-weight: 400;">JavaFX GUI Application that utilizes the following JavaFX features and Java Programming Methods:</span></p>

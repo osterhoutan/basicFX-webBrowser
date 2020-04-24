@@ -14,7 +14,7 @@ public enum SearchEngine {
         YOUTUBE     ("Youtube", "https://www.youtube.com/results?q=%s", "youtube:"),
             // VIDEOS     ("Youtube", "https://www.youtube.com/results?q=%s", "video:"),
     BING	("Bing", "https://www.bing.com/search?q=%s&qs=ds&form=QBLH", "bing:"),
-    DUCK	("Duck Duck GO", "https://duckduckgo.com/?q=%s&kp=-1&kl=us-en", "duck:"),
+    DUCK	("Duck Duck GO!", "https://duckduckgo.com/?q=%s&kp=-1&kl=us-en", "duck:"),
         // DDG	("Duck Duck GO", "https://duckduckgo.com/?q=%s&kp=-1&kl=us-en", "ddg:"),
     YAHOO	("Yahoo", "https://search.yahoo.com/search?p=%s", "yahoo:"),
     AMAZON  ("Amazon Store", "https://www.amazon.com/s?k=%s", "amazon:"),

@@ -99,15 +99,16 @@ public final class SettingsManager extends JsonManager<JSONObject> {
         if (!json.containsKey("customSearchEngine")) 
             return SearchEngine.GOOGLE;
         JSONObject values = (JSONObject) json.get("customSearchEngine");
+        String queryUrl = (values.containsKey("queryURL")) ? (String) values.get("queryURL") : "not a url!"; 
         if (values.containsKey("searchHeader"))
             return SearchEngine.setCustomEngine(
-                    (values.containsKey("name")) ? (String) values.get("name") : "Custom",
-                    (values.containsKey("queryURL")) ? (String) values.get("queryURL") : "",
+                    "Custom",
+                    (queryUrl.matches(Global.urlRegEx)) ? queryUrl : SearchEngine.CUSTOM.getQueryURL(),
                     (String) values.get("searchHeader")
                 );
         return SearchEngine.setCustomEngine(
                 (values.containsKey("name")) ? (String) values.get("name") : "Custom",
-                (values.containsKey("queryURL")) ? (String) values.get("queryURL") : ""
+                (queryUrl.matches(Global.urlRegEx)) ? queryUrl : SearchEngine.CUSTOM.getQueryURL()
             );
     }
 

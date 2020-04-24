@@ -66,72 +66,123 @@ _What things I am requiring myself to do for practice and personal standards rea
 
 
 ## 2. System Requirements:
-### Research:
-#### Java:
- - File access in Java
-
-#### JavaFX (general):
- - 
-
-#### FXML:
- - [Basic FXML tutorial (Jenkov)](http://tutorials.jenkov.com/javafx/fxml.html)
- - [Nesting FXML tutorial](https://riptutorial.com/javafx/example/7285/nested-controllers)
- - [Passing Data to FXML](https://riptutorial.com/javafx/example/8803/passing-data-to-fxml---accessing-existing-controller)
-
-#### JavaFX CSS:
- - [Basic JavaFX CSS tutorial (Jenkov)](http://tutorials.jenkov.com/javafx/css-styling.html)
- - [BAsic CSS tutorial Series (Jenkov)](http://tutorials.jenkov.com/css/index.html)
- - ##### Third Party Themes:
-   - temp
-
-#### json:
-  - `.json` in Java
-    - temp
-
+### Java Requirements:
+#### Required:
+ - Use JDK10 (outdated before this project began)
+ - File access and manipulation in Java
+ - JavaFX GUI System
+   - `javafx.scene.Node` or any of their children
+   - Any form of transition or animation form `javafx.animation.*`.
+   - A Property Binding of some sort.
+   - A Property Listener off some sort.
+   - An Event Binding of some sort.
+   - Any form of Client Server Network interaction.
+#### Optional:
+ - JavaFX FXML
+   - FXML Scene Builder application
+ - JavaFX CSS
+  
+<br/><br/><br/>
 
 
 ## 3. System Design:
+### Functionality:
+ - Save data to disk
+   - I plan to use `.json` for easy and efficient reading and writing to disk.
+   - Therefore I wiil need some JSON handling java Libraries:
+     - `com.json.simple`: for basic JSON editing
+     - `com.google.gson`: for more advanced object serialization and JSON editing
+
+ - Back-end Managers:
+   - settings manger
+   - bookmark manager
+   - history manager
+ - For efficient access the use of a Global object would be effective.
+   - All items in the `Global` object should be static
+   - If the item/attribute/data-member does not manage access to it's own data it must be a constant/final
+
+ - Gui Constriction and control methodologies:
+   - the use of FXML to be able to have the Scene graph be easily designed in a more human readable way than the normal procedural methods of building a scene graph.
+   - Divide the Gui's Scene graph into smaller more specialized components, this will better allow implementing some superficial data privacy and task encapsulation.
+     - FXML scene Graph Breakdown will go as follows:
+        ```mermaid
+        %% You will need mermaid markdown rendering software to view this image
+        graph TB
+          main --> menu
+              --> bookmark
+              menu --> history
+              menu --> settings
+            main --> browser
+              --> tab
+        ```
+   - Use FXML controller classes to collect the logic belonging to the nodes in each separate FXML file, as well as public access methods to be able to interact with the GUI from outside of it.
+   - This methodology makes it so that setting properties can be set using `css` and assigning properties in the FXML files, this will save me from having to create subclasses of javafx nodes to customize components.
+
+
+
 ### Scene Graph:
 ```mermaid
 %% You will need mermaid markdown rendering software to view this image
 graph LR
-  root[root: StackPane]
-    --> browserPane[browserPane: HBox]
-      --> menuOffset[menuOffest: Region]
-      browserPane --> webTabs[webTabs: WebTabPane]
-        -->|*1,..| webTab[*webTab: MyWebTab]
-          --> webMenu[webButtons: HBox]
-            --> backBtn[backBtn: Label]
-            webMenu --> fwdBtn[fwdBtn: Label]
-            webMenu --> refreshBtn[refreshBtn: Label]
+  root[root: BorderPane]
+    --center-->  webTabs[webTabs: WebTabPane]
+      -->|*1,..| webTab[*webTab: Tab]
+        --> tabRoot[tabRoot: BorderPane]
+        --top--> browserBar[webBar: VBox]
+          --> webMenu[browserBar: HBox]
+            --> backBtn[backBtn: Button]
+            webMenu --> fwdBtn[fwdBtn: Button]
+            webMenu --> refreshBtn[refreshBtn: Button]
             webMenu --> omniBar[omniBar: OmniBar]
-            webMenu --> bookmarkBtn[bookmarkBtn: Label]
-          webTab --> webView[webView: WebView]
+            webMenu --> bookmarkBtn[bookmarkBtn: Button]
+          tabRoot --center--> webView[webView: WebView]
 
-    root --> menuPane[menuPane: HBox]
-      --> menuTabs[menuTabs: ToolTabPane]
-        --> bookmarkTab[bookmarkTab: MyMenuTab]
-          --> bookmarkList[bookmarkList: ObjectList]
+          browserBar --> tabSep(tabSep : Separator)
 
-        menuTabs --> historyTab[historyTab: MyMenuTab]
-          --> historyList[historyList: ObjectList]
+    root --left--> menuRoot[menuRoot: HBox] 
+      --> menuSep(menuSep: Separator)
+      
+      menuRoot --> menuPane[menuPane: VBox]
+        --> menuTabs[menuTabs: TabPane]
+          --> bookmarkTab[bookmarkTab: Tab]
+            --> content1(...)
 
-        menuTabs --> chatTab[chatTab: MyMenuTab]
-          --> chatContent[chatContent: ChatInterface]
-          --> chatControl[chatControl: ChatControlInterface]
+          menuTabs --> historyTab[historyTab: Tab]
+            --> content2(...)
 
-        menuTabs --> settingsTab[settingsTab: MyMenuTab]
-          --> settingsMenu[settingsMenu: MyMenuSystem]
+       %% menuTabs --> chatTab[chatTab: MyMenuTab]
+         %% --> chatContent[chatContent: ChatInterface]
+          %%--> chatControl[chatControl: ChatControlInterface]
 
-    root --> topButtons[topButtons: AnchorPane]
-      --> windowControlBtns[windowControlBtns: HBox]
-        --> closeWindow[closeWindow: Label]
-        windowControlBtns --> maxWindow[maxWindow: Label]
-        windowControlBtns --> minWindow[minWindow: Label]
+          menuTabs --> settingsTab[settingsTab: Tab]
+            --> content3(...)
+
+    %%root --> topButtons[topButtons: AnchorPane]
+      %%--> windowControlBtns[windowControlBtns: HBox]
+        %%--> closeWindow[closeWindow: Label]
+        %%windowControlBtns --> maxWindow[maxWindow: Label]
+        %%windowControlBtns --> minWindow[minWindow: Label]
 
 ```
 
-### UML:
+
+## 4. System Testing:
+  Get Portions running and test them as much as possible, before moving on the the next feature.
+
+
+## 5. System Refinement:
+Add additional features, such as using Google's favicon service to get icons for the tabs.
+
+
+## 6. System Deployment:
+1. Zip and submit to canvas
+2. Tag Final Commit as `release1`.
+3. Publish GitHub repo to public facing.
+
+
+<!-- No mans land -->
+
+<!-- ### UML:
 ```mermaid
 classDiagram
 
@@ -241,20 +292,6 @@ classDiagram
       ToolTabPane --* "1" BookmarkToolTab
       ToolTabPane --* "1" HistoryToolTab
       ToolTabPane --* "1" ChatToolTab
-      ToolTabPane --* "1" SettingsToolTab
+      ToolTabPane --* "1" SettingsToolTab 
 
-```
-
-
-## 4. System Testing:
-
-
-
-## 5. System Refinement:
-
-
-
-## 6. System Deployment:
-1. Zip and submit to canvas
-2. Tag Final Commit as `release1`.
-3. Publish GitHub repo to public facing.
+```-->
