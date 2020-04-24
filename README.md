@@ -9,7 +9,7 @@ _Final Project: basicFX-webBrowser_
 ## About:
 This is a basic web browser with some limited themeing options and basic history and bookmarking features built in.
 
-![Start up Page](doc/img/StartupScrene.png)
+![Start up Page](https://github.com/osterhoutan/basicFX-webBrowser/blob/master/doc/img/StartupScrene.PNG)
 
 ### Disclaimer:
 This is a basic web browser built using JavaFX in using JDK-10 (which was out of support when made), as a final project for Utah State University's (USU) CS2410 Event Driven Programing and GUI's course.
