@@ -166,12 +166,12 @@ public class SettingsController extends FXML_Controller {
 
     @FXML
     public void openSettingsHelpPage(Event ev) {
-
+        Global.browserGUI.newTab("https://github.com/osterhoutan/basicFX-webBrowser/blob/master/doc/guid/settingsConfig.md#settings-config-user-guid");
     }
 
     @FXML
     public void openCustomHelpPage(Event ev) {
-
+        Global.browserGUI.newTab("https://github.com/osterhoutan/basicFX-webBrowser/blob/master/doc/guid/userAssets.md#user-assets-guid");
     }
 
 
